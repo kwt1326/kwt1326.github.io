@@ -30,13 +30,13 @@ const EditorPage = ({ valueType, router }: PropsType) => {
 
       axios({
         method: 'POST',
-        url: '/api/save',
+        url: '/api/post',
         data: { text: data, filename }
       }).then(() => {
         setFilename('');
       }).catch((e) => console.log(e))
     }
-  }, [editorRef])
+  }, [editorRef, filename])
 
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
