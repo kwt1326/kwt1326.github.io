@@ -2,24 +2,22 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { withRouter, NextRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import axios from 'axios';
-import { Editor as EditorType } from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import { EditorForwardedProps, EditorPropsWithHandlers } from './editorWrapper';
-import 'codemirror/lib/codemirror.css';
 import styles from "./editor.module.scss";
 
 const Editor = dynamic<EditorForwardedProps>(() => import('./editorWrapper'), { ssr: false });
-const EditorComponent = React.forwardRef<EditorType | undefined, EditorPropsWithHandlers>((props: EditorForwardedProps, ref) => {
+const EditorComponent = React.forwardRef<EditorType | undefined, EditorPropsWithHandlers>((props, ref) => {
   return <Editor {...props} forwardRef={ref as React.MutableRefObject<EditorType>} />
 })
 
-interface PropsType extends EditorType {
+interface PropsType extends EditorProps {
   // onChange(value: string): void;
   valueType?: "markdown" | "html";
   router: NextRouter;
 }
 
-const EditorPage = ({ valueType, router }: PropsType) => {
+const EditorPage: React.FC<PropsType> = ({ valueType, router }) => {
   const editorRef = useRef<EditorType>();
   const [filename, setFilename] = useState('default');
   
