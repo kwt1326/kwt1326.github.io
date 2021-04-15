@@ -4,7 +4,7 @@ import axios from 'axios';
 import './post.module.scss';
 
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  return <div>{props.content}</div>
+  return <section>{props.content}</section>
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
