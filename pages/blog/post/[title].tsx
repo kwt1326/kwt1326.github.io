@@ -1,12 +1,15 @@
 import React from 'react';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import axios from 'axios';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Viewer from '../../../components/Viewer';
 import './post.module.scss';
 
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <section>
-      {props.content}
+      <Viewer
+        initialValue={props.content}
+      />
     </section>
   )
 }
