@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import Viewer from '../../../components/Viewer';
+import { serverBaseUrl } from '../../../config';
 import './post.module.scss';
 
 const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -51,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const result = await axios({
     method: 'GET',
-    url: `${'http://localhost:5500'}/api/post`,
+    url: `${serverBaseUrl}/api/post`,
     data: { title }
   });
 
