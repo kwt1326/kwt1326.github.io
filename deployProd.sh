@@ -2,7 +2,7 @@
 
 rm -rf node_modules/.cache
 npm run build
-next export
+npm run deploy
 mkdir out
 touch out/.nojekyll
 git add out/
