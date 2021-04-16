@@ -18,11 +18,11 @@ const get = (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
-  const { filename, text } = req.body;
+  const { filename, text, category } = req.body;
 
   try {
     mkdirSync(join(process.cwd(), '/content'), { recursive: true });
-    writeFile(join(process.cwd(), `/content/${filename}.md`), String(text), (err) => {
+    writeFile(join(process.cwd(), `/content/${category || 'others'}/${filename}.md`), String(text), (err) => {
       if (err) throw err;
     });
   } catch (error) {
