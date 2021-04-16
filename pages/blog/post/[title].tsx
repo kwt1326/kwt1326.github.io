@@ -55,15 +55,12 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     url: `${serverBaseUrl}/api/post`,
     data: { title }
   });
-
-  if (result.status === 200) {
-    return {
-      props: {
-        content: result.data.content,
-      }
+  
+  return {
+    props: {
+      content: result.status === 200 ? result.data.content : '',
     }
   }
-  return { props: {} }
 }
 
 export default Post;
