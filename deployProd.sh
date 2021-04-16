@@ -3,7 +3,6 @@
 rm -rf node_modules/.cache
 npm run build
 npm run deploy
-mkdir out
 touch out/.nojekyll
 git add out/
 git commit -m 'Deploy Next.js to gh-pages'
