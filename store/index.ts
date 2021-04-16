@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, Middleware, StoreEnhancer } from 'redux';
+import { createStore, applyMiddleware, Middleware, StoreEnhancer, AnyAction } from 'redux';
 import { MakeStore, createWrapper } from 'next-redux-wrapper';
 import reducer from '../store/reducers';
 
@@ -10,11 +10,11 @@ const bindMiddleware = (middleware: Middleware[]): StoreEnhancer => {
   return applyMiddleware(...middleware);
 }
 
-const makeStore: MakeStore<{}> = () => {
+const makeStore: any = () => { // MakeStore<{}, AnyAction> # type error
   const store = createStore(reducer, {}, bindMiddleware([]));
   return store
 }
 
-const wrapper = createWrapper<{}>(makeStore, { debug: true });
+const wrapper = createWrapper<{}>(makeStore, { debug: false });
 
 export default wrapper;

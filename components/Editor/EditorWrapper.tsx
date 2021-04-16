@@ -9,6 +9,8 @@ export interface EditorPropsWithHandlers extends EditorProps {
   onChange?(value: string): void;
 }
 
-export default (props: EditorForwardedProps) => (
+const EditorWrapper = (props: EditorForwardedProps) => (
   <Editor {...props} ref={props.forwardRef} />
 ); 
+
+export default EditorWrapper;
