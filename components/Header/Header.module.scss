@@ -1,5 +1,29 @@
 @import '../../styles/mixin.scss';
 
 .container {
-  
+  @include flex_direction(row);
+  @include justify_content(space-between);
+  @include align_items(center);
+  width: 100vw;
+  height: 70px;
+
+  .title {
+    @include center_mid();
+    font-weight: bold;
+    font-size: 25px;
+    width: 200px;
+    height: 100%;
+    background-color: white;
+    color: black;
+  }
+
+  .right_menu {
+    @include center_mid();
+    height: 100%;
+    width: 70px;
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
 }

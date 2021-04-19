@@ -3,20 +3,21 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { promises as fs } from 'fs'
 import path from 'path'
 import Viewer from '../../../components/Viewer';
+import ContentWrapper from '../../../components/ContentWrapper';
+import { serverBaseUrl } from '../../../config';
 import './post.module.scss';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
+  const title = ctx?.params ? ctx.params?.title : 'default';
   try {
-    const title = ctx?.params ? ctx.params?.title : 'default';
-    console.log(`/content/${title}.md`)
     const content = await fs.readFile(path.join(process.cwd(), `/content/${title}.md`), { encoding: 'utf-8' });
-    return { props: { content } }
+    return { props: { title, content } }
   } catch (error) {
     console.log(error);
   }
 
   return {
-    props: { content: '' }
+    props: { title, content: '' }
   }
 }
 
@@ -24,7 +25,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   try {
     const pathList = await fs.readFile(path.join(process.cwd(), 'staticPath.txt'), { encoding: 'utf-8' });
     const paths = pathList.split('\n').map((text) => { return { params: { title: text } } });
-    console.log(paths)
     return { paths, fallback: false }
   } catch (error) {
     console.log(error);
@@ -61,16 +61,18 @@ const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       s.src = "//kwt-gh-blog.disqus.com/count.js";
       s.async = true;
       (d.body).appendChild(s);
-    })();  
+    })();
   })  
 
   return (
     <section>
-      <Viewer
-        initialValue={props.content}
-      />
-      <div id="disqus_thread"></div>
-      <a href="http://foo.com/bar.html#disqus_thread">Link</a>
+      <ContentWrapper>
+        <Viewer
+          initialValue={props.content}
+        />
+        <div id="disqus_thread"></div>
+        <a href={`${serverBaseUrl}/${props.title}.html#disqus_thread`}>Link</a>
+      </ContentWrapper>
     </section>    
   )
 }  
