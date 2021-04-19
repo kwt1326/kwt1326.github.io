@@ -1,4 +1,4 @@
 export default [
   { params: { title: 'default' } },
-  { params: { title: 'test' } }
+  { params: { title: 'test1' } }
 ]
