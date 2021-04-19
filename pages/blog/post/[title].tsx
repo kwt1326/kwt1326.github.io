@@ -1,23 +1,45 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { promises as fs } from 'fs'
+import path from 'path'
 import Viewer from '../../../components/Viewer';
-import { serverBaseUrl } from '../../../config';
+import { serverBaseUrl, isProd } from '../../../config';
+import postStaticList from '../../../staticPath';
 import './post.module.scss';
 
-const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const title = ctx?.params ? ctx.params?.title : 'default';
+
+  try {
+    const content = await fs.readFile(path.join(process.cwd(), `/content/${title}.md`), { encoding: 'utf-8' });
+    return { props: { content } }
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    props: { content: '' }
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return { paths: postStaticList, fallback: false }
+}
+
+const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   useEffect(() => {
     /**
       *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
       /*
       var disqus_config = function () {
-      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable  
       this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
       };
 
       <script id="dsq-count-scr" src="//kwt-gh-blog.disqus.com/count.js" async></script>
-    */
+    */   
 
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
@@ -25,7 +47,7 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       // @ts-ignore
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
-    })();
+    })();  
 
     (function () { 
       var d = document, s = d.createElement('script');
@@ -33,8 +55,8 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       s.src = "//kwt-gh-blog.disqus.com/count.js";
       s.async = true;
       (d.body).appendChild(s);
-    })();
-  })
+    })();  
+  })  
 
   return (
     <section>
@@ -43,24 +65,8 @@ const Post = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => 
       />
       <div id="disqus_thread"></div>
       <a href="http://foo.com/bar.html#disqus_thread">Link</a>
-    </section>
+    </section>    
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { title } = ctx.query;
-
-  const result = await axios({
-    method: 'GET',
-    url: `${serverBaseUrl}/api/post`,
-    data: { title }
-  });
-  
-  return {
-    props: {
-      content: result.status === 200 ? result.data.content : '',
-    }
-  }
-}
+}  
 
 export default Post;
