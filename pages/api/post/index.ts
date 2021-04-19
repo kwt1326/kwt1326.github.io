@@ -2,6 +2,7 @@ import { writeFile, readFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+// not used static page
 const get = (req: NextApiRequest, res: NextApiResponse) => {
   const { title } = req.body;
 
@@ -21,10 +22,18 @@ const post = (req: NextApiRequest, res: NextApiResponse) => {
   const { filename, text, category } = req.body;
 
   try {
-    mkdirSync(join(process.cwd(), '/content'), { recursive: true });
-    writeFile(join(process.cwd(), `/content/${category || 'others'}/${filename}.md`), String(text), (err) => {
+    const mainPath = join(process.cwd(), `/content/${category || 'others'}`);
+    mkdirSync(mainPath, { recursive: true });
+    writeFile(join(mainPath, `/${filename}.md`), String(text), (err) => {
       if (err) throw err;
     });
+
+    // add path with category
+    const pathfilePath = join(process.cwd(), 'staticPath.txt');
+    readFile(pathfilePath, { encoding: 'utf-8', }, (err, data) => {
+      if (err) throw err;
+      writeFile(pathfilePath, `${data}\n${category || 'others'}/${filename}`, (err) => { if (err) throw err })
+    })
   } catch (error) {
     console.log(error);
   }

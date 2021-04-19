@@ -4,9 +4,10 @@ import axios from 'axios';
 import styles from './Editor.module.scss';
 
 type SubmitModalType = {
-  content: string
-  router: NextRouter
-  closeModal(): Function
+  content: string;
+  category?: string;
+  router: NextRouter;
+  closeModal(): Function;
 }
 
 const SubmitModal = (props: SubmitModalType) => {
@@ -14,10 +15,11 @@ const SubmitModal = (props: SubmitModalType) => {
   let title = '';
 
   const download = useCallback(async () => {
+    console.log(props)
     axios({
       method: 'POST',
       url: '/api/post',
-      data: { filename: title, text: props.content }
+      data: { filename: title, text: props.content, category: props.category }
     }).then(() => {
       alert('게시되었습니다.');
     }).catch((e: unknown) => console.log(e))

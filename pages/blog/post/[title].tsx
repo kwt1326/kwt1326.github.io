@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { promises as fs } from 'fs'
 import path from 'path'
 import Viewer from '../../../components/Viewer';
-import { serverBaseUrl, isProd } from '../../../config';
-import postStaticList from '../../../staticPath';
 import './post.module.scss';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const title = ctx?.params ? ctx.params?.title : 'default';
-
   try {
+    const title = ctx?.params ? ctx.params?.title : 'default';
+    console.log(`/content/${title}.md`)
     const content = await fs.readFile(path.join(process.cwd(), `/content/${title}.md`), { encoding: 'utf-8' });
     return { props: { content } }
   } catch (error) {
@@ -24,7 +21,16 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: postStaticList, fallback: false }
+  try {
+    const pathList = await fs.readFile(path.join(process.cwd(), 'staticPath.txt'), { encoding: 'utf-8' });
+    const paths = pathList.split('\n').map((text) => { return { params: { title: text } } });
+    console.log(paths)
+    return { paths, fallback: false }
+  } catch (error) {
+    console.log(error);
+  }
+
+  return { paths: [], fallback: false }
 }
 
 const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
