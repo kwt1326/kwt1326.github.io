@@ -9,6 +9,13 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import '../styles/globals.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const getTitle = (title: string) => {
+    switch (process.env.NODE_ENV) {
+      case 'development': return `Local ${title}`;
+      default: return title
+    }
+  }
+
   return (
     <Fragment>
       <Head>
@@ -17,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           id="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
+        <title>{getTitle(`동태 's blog`)}</title>
       </Head>
       <Modal />
       <Header />

@@ -6,7 +6,7 @@ const Header = (props: any) => {
     <header className={styles.container}>
       <div className={styles.title}>동태 's blog</div>
       <div className={styles.right_menu}>
-        <img src={'/images/menu.svg'} />
+        <img src={'/images/menu.svg'} alt={'menu_toggle'} />
       </div>
     </header>
   )
