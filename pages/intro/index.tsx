@@ -1,7 +1,20 @@
 import React from 'react';
+import styles from './intro.module.scss';
 
-const Index = () => {
-  return <div>test</div>
+const Intro = (props: any) => {
+  const renderContentList = () => {
+    const data = props.response;
+    console.log(data)
+    return (
+      <>TEST</>
+    )
+  }
+
+  return (
+    <div className={styles.intro_container}>
+      {renderContentList()}
+    </div>
+    )
 }
 
-export default Index;
+export default Intro;

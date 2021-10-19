@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   render() {
+    console.log(this.props?.__NEXT_DATA__?.page?.includes('/blog/post/'), this.props?.__NEXT_DATA__?.page)
     return (
       <Html>
         <Head>
           <meta
             name="og:title"
-            content="동태 's blog"
+            content="DongTae 's blog"
           />
           <meta name="keywords" content="react, next, frontend, fullstack, programming, development" />
           <meta
             name="description"
-            content="Trouble Shooter 동태의 비교적 평화로운 블로그"
+            content="Trouble Shooter DongTae 의 비교적 평화로운 블로그"
           />
           <meta
             name="og:description"
-            content="Trouble Shooter 동태의 비교적 평화로운 블로그"
+            content="Trouble Shooter DongTae 의 비교적 평화로운 블로그"
           />
           {/* <meta
             name="og:image"

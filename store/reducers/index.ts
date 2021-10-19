@@ -1,20 +1,20 @@
-import { MODALONOFF, SETMODAL } from '../actions';
+import {
+    MODALONOFF, SETMODAL, MENUONOFF,
+} from '../actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
-
-type actionType = {
-    type: string;
-    payload: any;
-    isOpen?: boolean;
-    modalComponent?: JSX.Element;
-}
 
 const modalInitialState = {
     isOpen: false,
     modalComponent: null,
 };
 
-const modal = (state = modalInitialState, action: actionType) => {
+const modal = (state = modalInitialState, action: {
+    type: string;
+    payload: any;
+    isOpen?: boolean;
+    modalComponent?: JSX.Element;
+}) => {
     switch(action.type) {
         case MODALONOFF:
             return {
@@ -36,8 +36,29 @@ const modal = (state = modalInitialState, action: actionType) => {
     }
 };
 
+const menu = (state = { isOpen: false }, action: {
+    type: string;
+    isOpen: boolean;
+    payload: any;
+}) => {
+    switch (action.type) {
+        case MENUONOFF:
+            return {
+                ...state,
+                isOpen: action.isOpen,
+            }
+        case HYDRATE:
+            return {
+                ...state,
+                ...action.payload
+            }
+        default:
+            return state;
+    }
+}
+
 const reducer = combineReducers({
-    modal
+    modal, menu
 });
 
 export default reducer;

@@ -1,1 +1,1 @@
-hello react editor world!asdasdasdasd
+$$$hello react editor world!asdasdasdasd

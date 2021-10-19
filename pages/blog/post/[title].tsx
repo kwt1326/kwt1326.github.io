@@ -1,11 +1,14 @@
-import React, { useEffect } from 'react';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { promises as fs } from 'fs'
-import path from 'path'
+import React from 'react';
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType
+} from 'next';
+import { DiscussionEmbed } from 'disqus-react';
+import { promises as fs } from 'fs';
+import path from 'path';
+
 import Viewer from '../../../components/Viewer';
-import ContentWrapper from '../../../components/ContentWrapper';
-import { serverBaseUrl } from '../../../config';
-import './post.module.scss';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   const title = ctx?.params ? ctx.params?.title : 'default';
@@ -13,12 +16,10 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     const content = await fs.readFile(path.join(process.cwd(), `/content/${title}.md`), { encoding: 'utf-8' });
     return { props: { title, content } }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
-  return {
-    props: { title, content: '' }
-  }
+  return { props: { title, content: '' } }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -27,54 +28,27 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const paths = pathList.split('\n').map((text) => { return { params: { title: text } } });
     return { paths, fallback: false }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 
   return { paths: [], fallback: false }
 }
 
 const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-  useEffect(() => {
-    /**
-      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-      /*
-      var disqus_config = function () {
-      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable  
-      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-      };
-
-      <script id="dsq-count-scr" src="//kwt-gh-blog.disqus.com/count.js" async></script>
-    */   
-
-    (function() { // DON'T EDIT BELOW THIS LINE
-      var d = document, s = d.createElement('script');
-      s.src = 'https://kwt-gh-blog.disqus.com/embed.js';
-      // @ts-ignore
-      s.setAttribute('data-timestamp', +new Date());
-      (d.head || d.body).appendChild(s);
-    })();  
-
-    (function () { 
-      var d = document, s = d.createElement('script');
-      s.id = "dsq-count-scr"
-      s.src = "//kwt-gh-blog.disqus.com/count.js";
-      s.async = true;
-      (d.body).appendChild(s);
-    })();
-  })  
-
   return (
     <section>
-      <ContentWrapper>
-        <Viewer
-          initialValue={props.content}
-        />
-        <div id="disqus_thread"></div>
-        <a href={`${serverBaseUrl}/${props.title}.html#disqus_thread`}>Link</a>
-      </ContentWrapper>
-    </section>    
+      <Viewer initialValue={props.content} />
+      <DiscussionEmbed
+        shortname='kwt-gh-blog'
+        config={{
+          url: "https://kwt-gh-blog.disqus.com/embed.js",
+          identifier: props.title,
+          title: props.title,
+          language: 'ko_KR'
+        }}
+      />
+    </section>
   )
-}  
+}
 
 export default Post;

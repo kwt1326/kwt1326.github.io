@@ -53,7 +53,7 @@ const mapStateToProps = (state: { modal: { isOpen: boolean; modalComponent: any 
 
 const mapDispatchToProps = (dispatch: (arg0: { type: string; isOpen?: boolean; modalComponent?: JSX.Element }) => any) => ({
   modalOnOff: (isOpen: boolean) => dispatch(modalOnOff(isOpen)),
-  setModal: (content: string, category?: string) => dispatch(setModal(<SubmitModal content={content} category={category} closeModal={() => dispatch(modalOnOff(false))} />)),
+  setModal: (content: string) => dispatch(setModal(<SubmitModal content={content} closeModal={() => dispatch(modalOnOff(false))} />)),
 });  
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditorPage));

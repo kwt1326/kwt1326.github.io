@@ -2,24 +2,28 @@ import React, { useCallback, useEffect } from 'react';
 import { withRouter, NextRouter } from 'next/router';
 import axios from 'axios';
 import styles from './Editor.module.scss';
+import dayjs from 'dayjs';
 
 type SubmitModalType = {
   content: string;
-  category?: string;
   router: NextRouter;
   closeModal(): Function;
 }
 
 const SubmitModal = (props: SubmitModalType) => {
-  console.log(props)
   let title = '';
+  let category = '';
 
   const download = useCallback(async () => {
-    console.log(props)
     axios({
       method: 'POST',
       url: '/api/post',
-      data: { filename: title, text: props.content, category: props.category }
+      data: {
+        filename: `${title.replaceAll(' ', '-')}&${dayjs().format('YYYY-MM-DD.hh:mm:ss')}`,
+        text: props.content,
+        title,
+        category,
+      }
     }).then(() => {
       alert('게시되었습니다.');
     }).catch((e: unknown) => console.log(e))
@@ -30,6 +34,8 @@ const SubmitModal = (props: SubmitModalType) => {
       <div className={styles.input_wrap}>
         <p>문서의 제목을 입력해주세요.</p>
         <input onChange={(e) => title = e.target.value} />
+        <p style={{ marginTop: 15 }}>문서 카테고리를 입력해주세요.</p>
+        <input onChange={(e) => category = e.target.value} />
       </div>
       <div className={styles.btn_wrap}>
         <button onClick={props.closeModal}>취소</button>
