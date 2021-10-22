@@ -6,7 +6,6 @@ import Modal from '../components/Modal';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ContentWrapper from '../components/ContentWrapper';
-import 'codemirror/lib/codemirror.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '../styles/globals.scss'
 

@@ -3,7 +3,7 @@ import styles from './intro.module.scss';
 
 const Intro = (props: any) => {
   const renderContentList = () => {
-    const data = props.response;
+    const data = props.data;
     console.log(data)
     return (
       <>TEST</>

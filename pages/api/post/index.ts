@@ -1,55 +1,67 @@
-import { writeFile, readFile, mkdirSync } from 'fs';
+import { writeFile, readFile, mkdirSync, createReadStream } from 'fs';
 import { join } from 'path';
-import { NextApiRequest, NextApiResponse } from 'next';
 import cp from 'child_process';
-import fs from 'fs';
 import readline from 'readline';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-// not used static page
-const getPage = (req: NextApiRequest, res: NextApiResponse) => {
-  const { title } = req.body;
-
-  try {
-    readFile(join(process.cwd(), `/content/${title}.md`), {
-      encoding: 'utf-8',
-    }, (err, data) => {
-      if (err) throw err;
-      return res.status(200).json({ result: `SUCCESS READ : ${title}`, content: data })
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-const getList = (req: NextApiRequest, res: NextApiResponse) => {
+const getList = async (req: NextApiRequest, res: NextApiResponse) => {
   const page = req.query?.page;
-  const perCount = 2;
+  const perCount = 5;
   const pathFilePath = join(process.cwd(), 'staticPath.txt');
   const result: { title: string; content: string; category: string; }[] = [];
 
-  // linux 'tail' exec
-  cp.exec(`tail -n ${perCount * Number(page)} | head` + pathFilePath, async (err, stdout, stderr) => {
-    // const fileNameList = stdout?.split('\n')?.reverse();
+  // linux 'tail | head' paging exec
+  console.log(`tail -${perCount * Number(page)} ${pathFilePath} | head -${perCount}`)
+  const stdout = cp.execSync(`tail -${perCount * Number(page)} ${pathFilePath} | head -${perCount}`, { encoding: 'utf8' })
 
-    // const readStream = fs.createReadStream(pathFilePath);
+  // const stdout = cp.execSync('sh scripts/docFilePaging.sh', { encoding: 'utf8' })
 
-    // const readInterface = readline.createInterface({
-    //   input: readStream,
-    //   crlfDelay: Infinity
-    // });
+  const fileNameList = stdout?.split('\n')?.reverse()?.filter(name => name !== '');
 
-    // for await (const line of readInterface) {
-    //   readFile(
-    //     join(process.cwd(), `/content/${line}.md`),
-    //     { encoding: 'utf8' },
-    //     (err, data) => {
-    //       console.log(err)
-    //       result.push({ title: '1', content: data, category: data })
-    //     }
-    //   );
-    // }
-  })
-console.log(result)
+  for await (const fileName of fileNameList) {
+    const readStream = createReadStream(`content/${fileName}.md`);
+    const readInterface = readline.createInterface({
+      input: readStream,
+    });
+
+    const numReadMax = 5;
+    let contentReadCount = 0;
+    let readState = '';
+    let defaultValues = {
+      title: '',
+      category: '',
+      content: '',
+    }
+
+    for await (const line of readInterface) {
+      if (readState === '$title') {
+        defaultValues.title = line;
+        readState = '';
+      }
+      else if (readState === '$category') {
+        defaultValues.category = line;
+        readState = '';
+      }
+      else if (readState === '$content') {
+        if (contentReadCount < numReadMax) {
+          defaultValues.content += line;
+          contentReadCount++;
+          continue;
+        }
+        result.push(defaultValues);
+        break;
+      } else {
+        if (['$title', '$category', '$content'].includes(line)) {
+          readState = line;
+        }
+      }
+    }
+
+    if (contentReadCount < numReadMax) {
+      result.push(defaultValues);
+    }
+  }
+
   return res.status(200).json({ result: result })
 }
 

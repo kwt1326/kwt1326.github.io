@@ -14,11 +14,11 @@ export default class MyDocument extends Document {
           <meta name="keywords" content="react, next, frontend, fullstack, programming, development" />
           <meta
             name="description"
-            content="Trouble Shooter DongTae 의 비교적 평화로운 블로그"
+            content="DongTae 의 공허한 블로그"
           />
           <meta
             name="og:description"
-            content="Trouble Shooter DongTae 의 비교적 평화로운 블로그"
+            content="DongTae 의 공허한 블로그"
           />
           {/* <meta
             name="og:image"

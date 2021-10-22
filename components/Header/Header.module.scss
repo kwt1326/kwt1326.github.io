@@ -8,7 +8,9 @@
   top: 0;
   padding: 0 64px;
   height: 101px;
+  background-color: #fff;
   border-bottom: 1px solid #dfdfdf;
+  z-index: 101;
 
   .title {
     @include center_mid();
