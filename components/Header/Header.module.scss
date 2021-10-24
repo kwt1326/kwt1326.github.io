@@ -13,15 +13,30 @@
   z-index: 101;
 
   .title {
-    @include center_mid();
+    @include justify_content(flex-start);
+    @include align_items(center);
+    @include flex_direction(row);
+    flex-wrap: wrap;
     font-family: serif;
     font-weight: bold;
     font-size: 25px;
+    padding: 20px;
     width: 200px;
     height: 100%;
-    background-color: white;
+    background-color: transparent;
     color: black;
     cursor: pointer;
+    position: relative;
+    word-break: break-all;
+
+    .hidden_background {
+      position: absolute;
+      background-color: red;
+      height: 100px;
+      width: 200px;
+      right: 0px;
+      z-index: 1;
+    }  
   }
 
   .right_menu {

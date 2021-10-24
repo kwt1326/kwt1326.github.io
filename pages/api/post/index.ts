@@ -7,15 +7,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const getList = async (req: NextApiRequest, res: NextApiResponse) => {
   const page = req.query?.page;
   const perCount = 5;
-  const pathFilePath = join(process.cwd(), 'staticPath.txt');
   const result: { title: string; content: string; category: string; }[] = [];
 
   // linux 'tail | head' paging exec
-  console.log(`tail -${perCount * Number(page)} ${pathFilePath} | head -${perCount}`)
-  const stdout = cp.execSync(`tail -${perCount * Number(page)} ${pathFilePath} | head -${perCount}`, { encoding: 'utf8' })
-
-  // const stdout = cp.execSync('sh scripts/docFilePaging.sh', { encoding: 'utf8' })
-
+  const stdout = cp.execSync(`./docFilePaging.sh ${page} ${perCount}`, { encoding: 'utf8' })
   const fileNameList = stdout?.split('\n')?.reverse()?.filter(name => name !== '');
 
   for await (const fileName of fileNameList) {
@@ -41,25 +36,28 @@ const getList = async (req: NextApiRequest, res: NextApiResponse) => {
       else if (readState === '$category') {
         defaultValues.category = line;
         readState = '';
-      }
-      else if (readState === '$content') {
-        if (contentReadCount < numReadMax) {
-          defaultValues.content += line;
-          contentReadCount++;
-          continue;
-        }
         result.push(defaultValues);
         break;
-      } else {
+      }
+      // else if (readState === '$content') {
+      //   if (contentReadCount < numReadMax) {
+      //     defaultValues.content += line;
+      //     contentReadCount++;
+      //     continue;
+      //   }
+      //   result.push(defaultValues);
+      //   break;
+      // }
+      else {
         if (['$title', '$category', '$content'].includes(line)) {
           readState = line;
         }
       }
     }
 
-    if (contentReadCount < numReadMax) {
-      result.push(defaultValues);
-    }
+    // if (contentReadCount < numReadMax) {
+    //   result.push(defaultValues);
+    // }
   }
 
   return res.status(200).json({ result: result })

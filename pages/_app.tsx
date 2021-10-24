@@ -5,6 +5,8 @@ import wrapper from '../store';
 import Modal from '../components/Modal';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Profile from '../components/Profile';
+import SideMenuList from '../components/Lists/SideMenuList';
 import ContentWrapper from '../components/ContentWrapper';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '../styles/globals.scss'
@@ -25,6 +27,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     )
   }
 
+  const ComponentWrapper = (props: { pageProps: any }) => {
+    return (
+      <section className="component_wrap">
+        <div className="profile">
+          <Profile />
+        </div>
+        <div className="component">
+          <Component {...props?.pageProps} />
+        </div>
+      </section>
+    )
+  }
+
   return (
     <Fragment>
       <Head>
@@ -36,10 +51,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>{getTitle(`Dongtae's Dog-Foot`)}</title>
       </Head>
       <Modal />
+      <SideMenuList />
       <Header />
       <RenderBodyFooterWrap>
         <ContentWrapper>
-          <Component {...pageProps} />
+          <ComponentWrapper pageProps={pageProps} />
         </ContentWrapper>
         <Footer />
       </RenderBodyFooterWrap>

@@ -1,18 +1,15 @@
 import React from 'react';
+import ArticleList from '../../components/Lists/ArticleList';
+
 import styles from './intro.module.scss';
 
 const Intro = (props: any) => {
-  const renderContentList = () => {
-    const data = props.data;
-    console.log(data)
-    return (
-      <>TEST</>
-    )
-  }
-
   return (
     <div className={styles.intro_container}>
-      {renderContentList()}
+      <ArticleList
+        title={'Recently Post'}
+        listItems={props.data}
+      />
     </div>
     )
 }

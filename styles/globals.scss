@@ -1,4 +1,5 @@
 @import "./mixin.scss";
+@import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&display=swap');
 
 html,
 body {
@@ -18,4 +19,18 @@ a {
 
 .body_footer_wrap {
   overflow-y: auto;
+}
+
+.component_wrap {
+  @include flex_direction(row);
+  width: 100%;
+
+  .profile {
+    flex: 0.2;
+  }
+  .component {
+    width: 100%;
+    flex: 0.8;
+    padding-left: 20px;
+  }
 }

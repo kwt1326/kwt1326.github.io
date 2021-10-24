@@ -38,8 +38,8 @@ const modal = (state = modalInitialState, action: {
 
 const menu = (state = { isOpen: false }, action: {
     type: string;
-    isOpen: boolean;
     payload: any;
+    isOpen?: boolean;
 }) => {
     switch (action.type) {
         case MENUONOFF:

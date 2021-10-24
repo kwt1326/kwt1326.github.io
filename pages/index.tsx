@@ -12,7 +12,7 @@ export default function KWTBlogMain(props: { data: Array<{ title: string; catego
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const response = await axios({
     method: 'GET',
-    url: `http://localhost:5600/api/post?page=${2}`,
+    url: `http://localhost:5600/api/post?page=${1}`,
   });
 
   return {

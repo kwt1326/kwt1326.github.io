@@ -9,6 +9,7 @@ import styles from "./Editor.module.scss";
 interface PropsType {
   valueType?: "markdown" | "html";
   router: NextRouter;
+  // store
   modalOnOff: Function;
   setModal: Function;
   isOpen: boolean;

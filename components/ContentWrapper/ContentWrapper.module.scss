@@ -7,6 +7,9 @@
   border-bottom: 1px solid #dfdfdf;
 
   .content_wrap {
+    @include flex_direction(row);
+    @include justify_content(center);
+    @include align_items(flex-start);
     max-width: 1024px;
     min-width: 320px;
     width: 100%;

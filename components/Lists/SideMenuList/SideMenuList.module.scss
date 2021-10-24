@@ -1,0 +1,25 @@
+@import '../../../styles/mixin.scss';
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 99;
+
+  @include flex_direction(row);
+
+  .cover {
+    width: 100%;
+    height: 100%;
+    background: #000;
+  }
+
+  .menu_dom {
+    position: fixed;
+    width: 400px;
+    height: 100%;
+    background: blue;
+  }
+}

@@ -16,7 +16,7 @@ export function setModal(modalComponent: JSX.Element) {
     };
 }
 
-export function menuOnOff(isOpen: JSX.Element) {
+export function menuOnOff(isOpen: boolean) {
     return {
         type: MENUONOFF,
         isOpen,
