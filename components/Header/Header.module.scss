@@ -4,9 +4,10 @@
   @include flex_direction(row);
   @include justify_content(space-between);
   @include align_items(center);
-  position: sticky;
+  position: relative;
   top: 0;
   padding: 0 64px;
+  min-width: 600px;
   height: 101px;
   background-color: #fff;
   border-bottom: 1px solid #dfdfdf;

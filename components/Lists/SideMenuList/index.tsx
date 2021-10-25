@@ -26,7 +26,15 @@ const SideMenuList = (props: any) => {
             transition: { duration: 0.5 }
           }}
         >
-          TEST MENU
+          <motion.div className={styles.menu_content}>
+            {
+              props?.itemLists?.map((item: any) => (
+                <motion.article>
+                  {item.title}
+                </motion.article>
+              ))
+            }
+          </motion.div>
         </motion.div>
       </section>
     );

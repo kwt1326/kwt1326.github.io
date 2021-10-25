@@ -19,13 +19,12 @@ const getList = async (req: NextApiRequest, res: NextApiResponse) => {
       input: readStream,
     });
 
-    const numReadMax = 5;
-    let contentReadCount = 0;
     let readState = '';
     let defaultValues = {
       title: '',
       category: '',
       content: '',
+      filename: fileName,
     }
 
     for await (const line of readInterface) {
@@ -39,25 +38,12 @@ const getList = async (req: NextApiRequest, res: NextApiResponse) => {
         result.push(defaultValues);
         break;
       }
-      // else if (readState === '$content') {
-      //   if (contentReadCount < numReadMax) {
-      //     defaultValues.content += line;
-      //     contentReadCount++;
-      //     continue;
-      //   }
-      //   result.push(defaultValues);
-      //   break;
-      // }
       else {
         if (['$title', '$category', '$content'].includes(line)) {
           readState = line;
         }
       }
     }
-
-    // if (contentReadCount < numReadMax) {
-    //   result.push(defaultValues);
-    // }
   }
 
   return res.status(200).json({ result: result })
