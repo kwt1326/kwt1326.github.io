@@ -1,7 +1,17 @@
 import React from 'react';
+import ArticleList from '../../components/Lists/ArticleList';
 
-const Index = () => {
-  return <div>test</div>
+import styles from './intro.module.scss';
+
+const Intro = (props: any) => {
+  return (
+    <div className={styles.intro_container}>
+      <ArticleList
+        title={'Recently Post'}
+        listItems={props.data}
+      />
+    </div>
+    )
 }
 
-export default Index;
+export default Intro;

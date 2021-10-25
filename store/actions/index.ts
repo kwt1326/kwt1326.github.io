@@ -1,5 +1,6 @@
 export const MODALONOFF = 'modal/MODALONOFF';
 export const SETMODAL = 'modal/SETMODAL';
+export const MENUONOFF = 'modal/MENUONOFF';
 
 export function modalOnOff(isOpen: boolean) {
     return {
@@ -13,4 +14,11 @@ export function setModal(modalComponent: JSX.Element) {
         type: SETMODAL,
         modalComponent,
     };
+}
+
+export function menuOnOff(isOpen: boolean) {
+    return {
+        type: MENUONOFF,
+        isOpen,
+    }
 }

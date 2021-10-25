@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Editor as EditorType, EditorProps } from '@toast-ui/react-editor';
 import { EditorForwardedProps, EditorPropsWithHandlers } from './EditorWrapper';
@@ -23,7 +23,7 @@ const EditorPage: React.FC<PropsType> = (props) => {
       const instance = editorRef.current.getInstance();
       const valueType = props.valueType || "markdown";
   
-      props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHtml());
+      props.onChange(valueType === "markdown" ? instance.getMarkdown() : instance.getHTML());
     }
   }, [props, editorRef]);
 

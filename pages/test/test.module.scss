@@ -1,0 +1,97 @@
+@import '../../styles/mixin.scss';
+
+.container {
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+}
+
+.menu_anim_test {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  background-color: #333333;
+  z-index: 2;
+
+  @mixin span_default {
+    position: absolute;
+    width: 60px;
+    height: 1px;
+    background-color: white;
+    z-index: 1;
+  }
+
+  .span_1_menu {
+    @include span_default();
+    top: 20px;
+    left: 20px;
+    animation-fill-mode: forwards;
+    animation-direction: reverse;
+    animation-name: span_1_modify;
+    animation-duration: 1.0s;
+  }
+  .span_2_menu {
+    @include span_default();
+    top: 50px;
+    left: 20px;
+    animation-fill-mode: forwards;
+    animation-direction: reverse;
+    animation-name: span_2_modify;
+    animation-duration: 1.0s;
+  }
+  .span_3_menu {
+    @include span_default();
+    top: 80px;
+    left: 20px;
+    animation-fill-mode: forwards;
+    animation-direction: reverse;
+    animation-name: span_3_modify;
+    animation-duration: 1.0s;
+  }
+
+  .span_1_x {
+    @include span_default();
+    top: 20px;
+    left: 20px;
+    animation-name: span_1_modify;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+  }
+  .span_2_x {
+    @include span_default();
+    top: 50px;
+    left: 20px;
+    animation-name: span_2_modify;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+  }
+  .span_3_x {
+    @include span_default();
+    top: 80px;
+    left: 20px;
+    animation-name: span_3_modify;
+    animation-duration: 1.0s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes span_1_modify {
+  from {
+    transform: rotateZ(0deg);
+    top: 20px;
+  }
+  to {
+    transform: rotateZ(120deg);
+    top: -50px;
+  }
+}
+
+@keyframes span_2_modify {
+  
+}
+
+@keyframes span_3_modify {
+  
+}

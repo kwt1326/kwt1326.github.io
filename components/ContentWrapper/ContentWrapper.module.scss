@@ -1,0 +1,20 @@
+@import '../../styles/mixin.scss';
+
+.container {
+  @include flex_direction(column);
+  @include justify_content(flex-start);
+  @include align_items(center);
+  border-bottom: 1px solid #dfdfdf;
+
+  .content_wrap {
+    @include flex_direction(row);
+    @include justify_content(center);
+    @include align_items(flex-start);
+    max-width: 1024px;
+    min-width: 600px;
+    width: 100%;
+    padding: 30px;
+    padding-top: 60px;
+    margin-bottom: 100px;
+  }
+}

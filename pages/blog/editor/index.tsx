@@ -9,6 +9,7 @@ import styles from "./Editor.module.scss";
 interface PropsType {
   valueType?: "markdown" | "html";
   router: NextRouter;
+  // store
   modalOnOff: Function;
   setModal: Function;
   isOpen: boolean;
@@ -29,7 +30,7 @@ const EditorPage = ({ router, valueType, modalOnOff, setModal, isOpen }: PropsTy
       <div className={styles.header_wrapper}>
         <button
           onClick={async () => {
-            setModal(contentText)
+            setModal(contentText, 'test')
             setContent(contentText)
             modalOnOff(true)
           }}
