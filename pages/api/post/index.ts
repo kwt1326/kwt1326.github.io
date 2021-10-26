@@ -1,53 +1,6 @@
-import { writeFile, readFile, mkdirSync, createReadStream } from 'fs';
+import { writeFile, readFile, mkdirSync } from 'fs';
 import { join } from 'path';
-import cp from 'child_process';
-import readline from 'readline';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-const getList = async (req: NextApiRequest, res: NextApiResponse) => {
-  const page = req.query?.page;
-  const perCount = 5;
-  const result: { title: string; content: string; category: string; }[] = [];
-
-  // linux 'tail | head' paging exec
-  const stdout = cp.execSync(`./docFilePaging.sh ${page} ${perCount}`, { encoding: 'utf8' })
-  const fileNameList = stdout?.split('\n')?.reverse()?.filter(name => name !== '');
-
-  for await (const fileName of fileNameList) {
-    const readStream = createReadStream(`content/${fileName}.md`);
-    const readInterface = readline.createInterface({
-      input: readStream,
-    });
-
-    let readState = '';
-    let defaultValues = {
-      title: '',
-      category: '',
-      content: '',
-      filename: fileName,
-    }
-
-    for await (const line of readInterface) {
-      if (readState === '$title') {
-        defaultValues.title = line;
-        readState = '';
-      }
-      else if (readState === '$category') {
-        defaultValues.category = line;
-        readState = '';
-        result.push(defaultValues);
-        break;
-      }
-      else {
-        if (['$title', '$category', '$content'].includes(line)) {
-          readState = line;
-        }
-      }
-    }
-  }
-
-  return res.status(200).json({ result: result })
-}
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const { filename, text, title, category } = req.body;
@@ -78,8 +31,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':
       return post(req, res);
-    case 'GET':
-      return getList(req, res);
     default:
       return res.status(404);
   }
