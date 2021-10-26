@@ -18,25 +18,41 @@ a {
 }
 
 .body_footer_wrap {
-  overflow-y: auto;
+  
 }
 
 .component_wrap {
   @include flex_direction(row);
   width: 100%;
   min-width: 600px;
-  // max-height: 600px; // 높이 재조정 필요 (임시)
-  // overflow-y: auto;
-  // overflow-x: hidden;
 
   .profile {
     position: sticky;  
     top: 0;
     flex: 0.2;
+    height: 500px;
   }
   .component {
-    width: 100%;
     flex: 0.8;
-    padding-left: 20px;
+    padding: 0 30px;
+  }
+  .right_side_menu {
+    min-width: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .component_wrap {
+    min-width: 0;
+    .profile {
+      display: none;
+    }
+    .component {
+      padding: 0;
+      flex: 1;
+    }
+    .right_side_menu {
+      min-width: 0;
+    }  
   }
 }

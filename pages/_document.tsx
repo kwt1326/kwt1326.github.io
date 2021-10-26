@@ -1,9 +1,8 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 export default class MyDocument extends Document {
   render() {
-    console.log(this.props?.__NEXT_DATA__?.page?.includes('/blog/post/'), this.props?.__NEXT_DATA__?.page)
     return (
       <Html>
         <Head>

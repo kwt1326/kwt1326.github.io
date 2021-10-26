@@ -1,13 +1,18 @@
-import type { AppProps } from 'next/app'
-import Head from 'next/head';
 import React, { Fragment } from 'react';
+import Head from 'next/head';
+import type { AppProps } from 'next/app'
+import { DefaultSeo } from 'next-seo';
+
 import wrapper from '../store';
 import Modal from '../components/Modal';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Profile from '../components/Profile';
+import RightSideMenu from '../components/RightSideMenu';
 import SideMenuList from '../components/Lists/SideMenuList';
 import ContentWrapper from '../components/ContentWrapper';
+import DefaultSeoValues from '../constants/defaultSeoValues.config';
+
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '../styles/globals.scss'
 
@@ -36,12 +41,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         <div className="component">
           <Component {...props?.pageProps} />
         </div>
+        <div className="right_side_menu">
+          <RightSideMenu />
+        </div>
       </section>
     )
   }
 
   return (
     <Fragment>
+      <DefaultSeo {...DefaultSeoValues} />
       <Head>
         <meta
           name="viewport"

@@ -7,9 +7,9 @@ import {
 import path from 'path';
 import { promises as fs } from 'fs';
 import { DiscussionEmbed } from 'disqus-react';
-import documentParser from '../../../../utils/node/documentParser';
+import documentParser from '../../../../../utils/node/documentParser';
 
-import Viewer from '../../../../components/Viewer';
+import Viewer from '../../../../../components/Viewer';
 
 import styles from './post.module.scss';
 

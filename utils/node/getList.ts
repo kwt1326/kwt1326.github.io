@@ -8,10 +8,11 @@ const getList = async ({ page, perCount, category }: {
   perCount: number;
   category?: string;
 }) => {
-  const result: { title: string; content: string; category: string; }[] = [];
+  const result: { title: string; content: string; category: string; filename: string; }[] = [];
 
   // linux 'tail | head' paging exec
-  const stdout = cp.execSync(`${path.join(process.cwd(), 'docFilePaging.sh')} ${page} ${perCount}`, { encoding: 'utf8' })
+  const per = perCount === 0 ? 99999 : perCount;
+  const stdout = cp.execSync(`${path.join(process.cwd(), 'docFilePaging.sh')} ${page} ${per}`, { encoding: 'utf8' })
   const fileNameList = stdout?.split('\n')?.reverse()?.filter(name => name !== '');
 
   for await (const fileName of fileNameList) {
