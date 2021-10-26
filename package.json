@@ -6,7 +6,8 @@
     "dev": "NODE_ENV=development tsc-watch --noClear --onFirstSuccess \"next dev -p 5600\"",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production next start -p 5600",
-    "deploy": "NODE_ENV=production next export"
+    "deploy": "NODE_ENV=production next export",
+    "deploy_gh": "sh ./deployProd.sh"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",

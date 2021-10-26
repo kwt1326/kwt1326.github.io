@@ -1,5 +1,5 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Intro from './intro';
 import getList from '../utils/node/getList';
 
@@ -9,7 +9,7 @@ export default function KWTBlogMain(props: { data: Array<{ title: string; catego
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (ctx) => {
   const list = await getList({ page: 1, perCount: 5 })
 
   return {
