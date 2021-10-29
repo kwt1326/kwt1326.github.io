@@ -15,11 +15,14 @@ const SubmitModal = (props: SubmitModalType) => {
   let category = '';
 
   const download = useCallback(async () => {
+    if (!title) {
+      return alert('제목은 필수입력 사항 입니다.');
+    }
     axios({
       method: 'POST',
       url: '/api/post',
       data: {
-        filename: `${title.replaceAll(' ', '-')}&${dayjs().format('YYYY-MM-DD.hh:mm:ss')}`,
+        filename: title.replaceAll(' ', '-'),
         text: props.content,
         title,
         category,

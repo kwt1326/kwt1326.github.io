@@ -27,15 +27,25 @@
   }
 
   .profile_infos {
-    article:nth-child(1) {
+    .name {
       font-size: 16px;
       font-weight: bold;
       padding-bottom: 15px;
     }
-    article:nth-child(2) {
+    .introduction {
       font-size: 14px;
       color: #aaa;
       padding-bottom: 15px;
+    }
+  }
+
+  .icons {
+    @include flex_direction(row);
+    @include justify_content(flex-start);
+    @include align_items(center);
+
+    article {
+      margin-right: 7px;
     }
   }
 }
