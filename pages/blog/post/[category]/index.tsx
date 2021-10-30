@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { withRouter, NextRouter } from 'next/router';
+import { connect } from 'react-redux';
+import { setMenuList } from '../../../../store/actions';
 import DB from '../../../../utils/node/connectDB';
 import getList from '../../../../utils/node/getList';
 import paging from '../../../../utils/node/paging';
@@ -12,6 +14,8 @@ import styles from './post.module.scss';
 const numPerPage = 5;
 const Categories = (props: {
   router: NextRouter;
+  preStoreMenuList: any[];
+  setMenuList: Function;
   category: string;
   list: {
     title: string;
@@ -24,6 +28,7 @@ const Categories = (props: {
   const [listItems, setListItems] = useState<any[]>([]);
 
   useEffect(() => {
+    props.setMenuList(props.preStoreMenuList);
     setListItems(paging(props.list, page, numPerPage));
   }, [page])
 
@@ -53,6 +58,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   const category = typeof params?.category === 'string' ? params?.category : '';
   const list = await getList({ page: 1, perCount: -1, category: category })
   const props = {
+    preStoreMenuList: DB.allMenuList,
     list: list ?? [],
     category
   }
@@ -70,4 +76,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths: [], fallback: false }
 }
 
-export default withRouter(Categories);
+const mapDispatchToProps = (dispatch: (arg0: { type: string; list?: any[] }) => any) => ({
+  setMenuList: (list: any[]) => dispatch(setMenuList(list)),
+});  
+
+export default connect(undefined, mapDispatchToProps)(withRouter(Categories));

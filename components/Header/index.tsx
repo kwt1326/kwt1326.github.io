@@ -17,24 +17,24 @@ interface PropsType {
 }
 
 const Header = (props: PropsType) => {
-  if (headerIgnore.find(path => path === props.router.pathname) === undefined) {
+  if (headerIgnore.includes(props.router.pathname) === false) {
+    const createPostBtn = () => {
+      if (process.env.NODE_ENV === 'development') {
+        return (
+          <button
+            className={styles.editor_button}
+            onClick={() => props.router.push('/blog/editor')}
+          >작성하기</button>
+        )
+      }
+      return null;
+    }
+
     return (
       <header className={styles.container}>
-        <motion.div
-          className={styles.title}
-          onClick={() => props.router.push('/')}
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
-        >
-          <motion.article
-          >DONGTAE</motion.article>
-          <motion.article
-            style={{ width: 'fit-content' }}
-            whileHover={{ rotateZ: [0, 90, 80, 90] }}
-            >{"'s \n"}</motion.article> 
-          <motion.article>DOG-FOOT</motion.article>
-        </motion.div>
+        <div className={styles.title} onClick={() => props.router.push('/')}>{"/\Wonta3_code/"}</div>
         <div className={styles.right_menu}>
+          {createPostBtn()}
           <MenuIcon onClick={() => props.menuOnOff(!props.isOpen)} />
         </div>
       </header>

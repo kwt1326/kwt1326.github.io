@@ -24,7 +24,7 @@ a {
 .component_wrap {
   @include flex_direction(row);
   width: 100%;
-  min-width: 600px;
+  min-width: 370px;
 
   .profile {
     position: sticky;  
@@ -34,7 +34,7 @@ a {
   }
   .component {
     flex: 0.8;
-    padding: 0 30px;
+    padding: 0 30px 0 60px;
   }
   .right_side_menu {
     min-width: 100px;

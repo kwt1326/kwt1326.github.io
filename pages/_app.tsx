@@ -15,6 +15,7 @@ import DefaultSeoValues from '../constants/defaultSeoValues.config';
 
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '../styles/globals.scss'
+import commonIgnore from '../constants/commonIgnore';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const getTitle = (title: string) => {
@@ -33,17 +34,27 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const ComponentWrapper = (props: { pageProps: any }) => {
+    const isIgnorePage = Component.displayName ? commonIgnore?.diaplayNames?.includes(Component.displayName) : false;
+
     return (
       <section className="component_wrap">
-        <div className="profile">
-          <Profile />
-        </div>
-        <div className="component">
+        {
+          !isIgnorePage && (
+            <div className="profile">
+              <Profile />
+            </div>
+          )
+        }
+        <div className="component" style={isIgnorePage ? { padding: 0 } : {}}>
           <Component {...props?.pageProps} />
         </div>
-        <div className="right_side_menu">
-          <RightSideMenu />
-        </div>
+        {
+          !isIgnorePage && (
+            <div className="right_side_menu">
+              <RightSideMenu />
+            </div>
+          )
+        }
       </section>
     )
   }

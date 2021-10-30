@@ -3,4 +3,5 @@ export default [
   '/blog/editor',
   '/about_me',
   '/test',
+  '/',
 ]

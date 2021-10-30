@@ -1,5 +1,5 @@
 import {
-    MODALONOFF, SETMODAL, MENUONOFF,
+    MODALONOFF, SETMODAL, MENUONOFF, MENULIST
 } from '../actions';
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from 'redux';
@@ -36,16 +36,22 @@ const modal = (state = modalInitialState, action: {
     }
 };
 
-const menu = (state = { isOpen: false }, action: {
+const menu = (state = { isOpen: false, list: [] }, action: {
     type: string;
     payload: any;
     isOpen?: boolean;
+    list?: any[];
 }) => {
     switch (action.type) {
         case MENUONOFF:
             return {
                 ...state,
                 isOpen: action.isOpen,
+            }
+        case MENULIST:
+            return {
+                ...state,
+                list: action.list,
             }
         case HYDRATE:
             return {

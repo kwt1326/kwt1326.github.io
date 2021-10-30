@@ -8,20 +8,31 @@ import styles from "./Editor.module.scss";
 
 interface PropsType {
   valueType?: "markdown" | "html";
+  initialContent?: string;
+  title?: string;
+  category?: string;
   router: NextRouter;
   // store
   modalOnOff: Function;
   setModal: Function;
-  isOpen: boolean;
 }
 
-const EditorPage = ({ router, valueType, modalOnOff, setModal, isOpen }: PropsType) => {
+const EditorPage = ({
+  router, initialContent, valueType, modalOnOff, setModal,
+  title, category
+}: PropsType) => {
   const [content, setContent] = useState('');
+  const [didmount, setDidmount] = useState(false);
   let contentText = '';
   
   useEffect(() => {
     if (process.env.NODE_ENV !== 'development') {
       router.push('/');
+    } else {
+      if (!didmount) {
+        setDidmount(true);
+        initialContent && setContent(initialContent);
+      }
     }
   })
 
@@ -30,9 +41,9 @@ const EditorPage = ({ router, valueType, modalOnOff, setModal, isOpen }: PropsTy
       <div className={styles.header_wrapper}>
         <button
           onClick={async () => {
-            setModal(contentText, 'test')
-            setContent(contentText)
-            modalOnOff(true)
+            setContent(contentText);
+            setModal({ content: contentText, title, category });
+            modalOnOff(true);
           }}
         >
           게시하기
@@ -54,7 +65,11 @@ const mapStateToProps = (state: { modal: { isOpen: boolean; modalComponent: any 
 
 const mapDispatchToProps = (dispatch: (arg0: { type: string; isOpen?: boolean; modalComponent?: JSX.Element }) => any) => ({
   modalOnOff: (isOpen: boolean) => dispatch(modalOnOff(isOpen)),
-  setModal: (content: string) => dispatch(setModal(<SubmitModal content={content} closeModal={() => dispatch(modalOnOff(false))} />)),
-});  
+  setModal: (data: {
+    content: string;
+    title?: string;
+    category?: string;
+  }) => dispatch(setModal(<SubmitModal data={data} closeModal={() => dispatch(modalOnOff(false))} />)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(EditorPage));

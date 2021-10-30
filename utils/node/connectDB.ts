@@ -15,6 +15,18 @@ class connectDB {
   get tablePosts() { return JSON.parse(this.jsonDB)?.posts; }
 
   get tableCategory() { return JSON.parse(this.jsonDB)?.category; }
+
+  get allMenuList() {
+    const posts = this.tablePosts;
+    return this.tableCategory?.map((category: string) => ({
+      [category]: posts
+        .filter((item: any) => item?.category === category)
+        ?.map((item: { file_name: string; title: string }) => ({
+          fileName: item.file_name,
+          title: item.title
+        }))
+    }))
+  }
 }
 
 export default new connectDB();

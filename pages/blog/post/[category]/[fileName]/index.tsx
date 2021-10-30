@@ -1,12 +1,15 @@
-import React from 'react';
+import path from 'path';
+import React, { useEffect } from 'react';
 import {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType
 } from 'next';
-import path from 'path';
+import { withRouter } from 'next/router';
 import { readFileSync } from 'fs';
+import { connect } from 'react-redux';
 import { DiscussionEmbed } from 'disqus-react';
+import { setMenuList } from '../../../../../store/actions';
 import DB from '../../../../../utils/node/connectDB';
 import Viewer from '../../../../../components/Viewer';
 
@@ -25,7 +28,12 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       const createdAt = findIt?.created_at ?? '';
       const filepath = path.join(process.cwd(), `/content/${findIt?.category}/${findIt?.file_name}.md`);
       const content = readFileSync(filepath, { encoding: 'utf8' });
-      return { props: { title, category, createdAt, content } }
+      return {
+        props: {
+          title, category, createdAt, content, fileName,
+          preStoreMenuList: DB.allMenuList
+        }
+      }
     }
     throw new Error('not found file');
   } catch (error) {
@@ -48,13 +56,31 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+  useEffect(() => {
+    props.setMenuList(props.preStoreMenuList);
+  })
+
+  const renderModifyButton = () => {
+    if (process.env.NODE_ENV === 'development') {
+      return (
+        <div className={styles.button_wrap}>
+          <button
+            className={styles.button}
+            onClick={() => props.router.push(`/blog/editor/${props.category}/${props.fileName}`)}
+          >수정하기</button>
+        </div>
+      )
+    }
+  }
+
   return (
     <section>
       <h1 className={styles.title}>
         {props?.title || 'No Title'}
       </h1>
+      {renderModifyButton()}
       <article className={styles.created_at}>
-        {props?.createdAt || ''}
+        {'최종 수정일 : ' + props?.createdAt || ''}
       </article>
       <Viewer initialValue={props?.content} />
       <DiscussionEmbed
@@ -69,4 +95,8 @@ const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   )
 }
 
-export default Post;
+const mapDispatchToProps = (dispatch: (arg0: { type: string; list?: any[] }) => any) => ({
+  setMenuList: (list: any[]) => dispatch(setMenuList(list)),
+});  
+
+export default connect(undefined, mapDispatchToProps)(withRouter(Post));

@@ -1,12 +1,12 @@
 const DefaultSeoValues = {
-  titleTemplate: "%s | Dongtae's Dog-Foot blog",
+  titleTemplate: "%s | wontae_code Dev blog",
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
     url: 'https://kwt1326.github.io/',
-    title: "Dongtae's Dog-Foot blog",
-    site_name: "Web Developer Dongtae's blog",
-    description: '여러가지 생각나는 대로 쓰는 개발자의 블로그'
+    title: "wontae_code Dev blog",
+    site_name: "wontae_code Dev blog",
+    description: 'wontae Kim 의 개발 블로그에 오신걸 환영해요.'
   },
   // twitter: {
   //   handle: '@garmeeh',

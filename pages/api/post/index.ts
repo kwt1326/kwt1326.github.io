@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const { filename, text, title, category } = req.body;
-console.log(req.body);
+
   try {
     // create content
     const mainPath = join(process.cwd(), `/content/${category || 'others'}`);
@@ -18,7 +18,7 @@ console.log(req.body);
     // static data insert local JSON DB
     readFile(pathFilePath, { encoding: 'utf-8', }, (err, data) => {
       if (err) throw err;
-      const jsonPathTable = JSON.parse(data);
+      let jsonPathTable = JSON.parse(data);
 
       // if not has category, add new category
       if (!!category && jsonPathTable?.category?.find((item: string) => item === category) === undefined) {
@@ -26,12 +26,25 @@ console.log(req.body);
       }
 
       // add new post
-      jsonPathTable?.posts?.push({
-        title,
-        file_name: filename,
-        category: category || 'others',
-        created_at: dayjs().format('YYYY-MM-DD HH:mm:ss')
-      });
+      const findIt = jsonPathTable?.posts?.find((item: { file_name: any; }) => item.file_name === filename);
+      if (findIt === undefined) {
+        jsonPathTable?.posts?.push({
+          title,
+          file_name: filename,
+          category: category || 'others',
+          created_at: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        });
+      } else {
+        // modify
+        const filter = jsonPathTable?.posts?.filter((item: { file_name: any; }) => item.file_name !== filename);
+        findIt.created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        filter.push(findIt);
+        
+        jsonPathTable = {
+          category: jsonPathTable?.category,
+          posts: filter
+        }
+      }
 
       // Path DB Update
       writeFile(pathFilePath, JSON.stringify(jsonPathTable), (err) => { if (err) throw err });
