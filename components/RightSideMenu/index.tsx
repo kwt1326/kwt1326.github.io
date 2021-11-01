@@ -7,15 +7,17 @@ import styles from './RightSideMenu.module.scss';
 const RightSideMenu = (props: any) => {
   if (sideIgnore.includes(props.router.pathname) === false) {
     return (
-      <section className={styles.container}>
-        {/* {
-          sideMenuItems?.map((item) => (
-            <div className={styles.item}>
-              {item}
-            </div>
-          ))
-        } */}
-      </section>
+      <div className="right_side_menu">
+        <section className={styles.container}>
+          {/* {
+            sideMenuItems?.map((item) => (
+              <div className={styles.item}>
+                {item}
+              </div>
+            ))
+          } */}
+        </section>
+      </div>
     )
   }
   return null;

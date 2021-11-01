@@ -34,27 +34,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   const ComponentWrapper = (props: { pageProps: any }) => {
-    const isIgnorePage = Component.displayName ? commonIgnore?.diaplayNames?.includes(Component.displayName) : false;
-
     return (
       <section className="component_wrap">
-        {
-          !isIgnorePage && (
-            <div className="profile">
-              <Profile />
-            </div>
-          )
-        }
-        <div className="component" style={isIgnorePage ? { padding: 0, flex: 1 } : {}}>
+        <Profile />
+        <div className="component">
           <Component {...props?.pageProps} />
         </div>
-        {
-          !isIgnorePage && (
-            <div className="right_side_menu">
-              <RightSideMenu />
-            </div>
-          )
-        }
+        <RightSideMenu />
       </section>
     )
   }
