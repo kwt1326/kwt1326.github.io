@@ -51,21 +51,23 @@ a {
 
 .component_wrap {
   @include flex_direction(row);
+  @include justify_content(center);
   width: 100%;
   min-width: 370px;
 
   .profile {
     position: sticky;  
     top: 0;
-    flex: 0.2;
+    width: 150px;
     height: 500px;
+    margin-right: 60px;
   }
   .component {
-    flex: 0.8;
-    padding: 0 30px 0 60px;
+    width: calc(100% - 90px);
   }
   .right_side_menu {
     min-width: 100px;
+    margin-left: 30px;
   }
 }
 
@@ -76,11 +78,10 @@ a {
       display: none;
     }
     .component {
-      padding: 0;
-      flex: 1;
+      width: 100%;
     }
     .right_side_menu {
-      min-width: 0;
+      display: none;
     }  
   }
 }

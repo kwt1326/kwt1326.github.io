@@ -31,7 +31,7 @@ const Header = (props: PropsType) => {
     }
 
     return (
-      <header className={styles.container}>
+      <header id="header" className={styles.container}>
         <div className={styles.title} onClick={() => props.router.push('/')}>{"/\Wonta3_code/"}</div>
         <div className={styles.right_menu}>
           {createPostBtn()}
