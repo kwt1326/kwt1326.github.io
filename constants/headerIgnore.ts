@@ -1,4 +1,6 @@
 export default [
-  '/about',
-  '/test'
+  '/blog/editor/[category]/[fileName]',
+  '/blog/editor',
+  '/about_me',
+  '/test',
 ]

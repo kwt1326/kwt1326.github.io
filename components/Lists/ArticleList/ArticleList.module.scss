@@ -7,10 +7,10 @@
   width: 100%;
 
   .title {
-    width: 100%;
-    text-align: center;
-    font-family: 'Zen Old Mincho', serif;
-    font-size: 16px;
+    width: fit-content;
+    text-align: left;
+    font-size: 14px;
+    font-weight: bold;
   }
 
   .list_item_container_action {

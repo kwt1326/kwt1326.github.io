@@ -17,26 +17,70 @@ a {
   box-sizing: border-box;
 }
 
+.toastui-editor-contents {
+  font-size: 1.1rem !important;
+}
+
+.toastui-editor-contents h1 {
+  font-size: 40px !important;
+}
+
+.toastui-editor-contents h2 {
+  font-size: 32px !important;
+}
+
+.toastui-editor-contents h3 {
+  font-size: 24px !important;
+}
+
+.toastui-editor-contents h4 {
+  font-size: 18px !important;
+}
+
+.toastui-editor-contents h5 {
+  font-size: 15px !important;
+}
+
+.toastui-editor-contents h6 {
+  font-size: 12px !important;
+}
+
 .body_footer_wrap {
-  overflow-y: auto;
+  
 }
 
 .component_wrap {
   @include flex_direction(row);
   width: 100%;
-  min-width: 600px;
-  // max-height: 600px; // 높이 재조정 필요 (임시)
-  // overflow-y: auto;
-  // overflow-x: hidden;
+  min-width: 370px;
 
   .profile {
     position: sticky;  
     top: 0;
     flex: 0.2;
+    height: 500px;
   }
   .component {
-    width: 100%;
     flex: 0.8;
-    padding-left: 20px;
+    padding: 0 30px 0 60px;
+  }
+  .right_side_menu {
+    min-width: 100px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .component_wrap {
+    min-width: 0;
+    .profile {
+      display: none;
+    }
+    .component {
+      padding: 0;
+      flex: 1;
+    }
+    .right_side_menu {
+      min-width: 0;
+    }  
   }
 }

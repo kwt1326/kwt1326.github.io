@@ -1,24 +1,53 @@
 import { writeFile, readFile, mkdirSync } from 'fs';
 import { join } from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
+import dayjs from 'dayjs';
 
 const post = (req: NextApiRequest, res: NextApiResponse) => {
   const { filename, text, title, category } = req.body;
 
   try {
+    // create content
     const mainPath = join(process.cwd(), `/content/${category || 'others'}`);
     mkdirSync(mainPath, { recursive: true });
 
-    const contentText = `$title\n${title}\n$category\n${category || 'others'}\n$content\n${text}`;
-    writeFile(join(mainPath, `/${filename}.md`), contentText, (err) => {
-      if (err) throw err;
-    });
+    writeFile(join(mainPath, `/${filename}.md`), text, (err) => { if (err) throw err });
 
-    // add path with category
-    const pathFilePath = join(process.cwd(), 'staticPath.txt');
+    const pathFilePath = join(process.cwd(), 'db.json');
+
+    // static data insert local JSON DB
     readFile(pathFilePath, { encoding: 'utf-8', }, (err, data) => {
       if (err) throw err;
-      writeFile(pathFilePath, `${data}\n${category || 'others'}/${filename}`, (err) => { if (err) throw err })
+      let jsonPathTable = JSON.parse(data);
+
+      // if not has category, add new category
+      if (!!category && jsonPathTable?.category?.find((item: string) => item === category) === undefined) {
+        jsonPathTable?.category?.push(category);
+      }
+
+      // add new post
+      const findIt = jsonPathTable?.posts?.find((item: { file_name: any; }) => item.file_name === filename);
+      if (findIt === undefined) {
+        jsonPathTable?.posts?.push({
+          title,
+          file_name: filename,
+          category: category || 'others',
+          created_at: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        });
+      } else {
+        // modify
+        const filter = jsonPathTable?.posts?.filter((item: { file_name: any; }) => item.file_name !== filename);
+        findIt.created_at = dayjs().format('YYYY-MM-DD HH:mm:ss');
+        filter.push(findIt);
+        
+        jsonPathTable = {
+          category: jsonPathTable?.category,
+          posts: filter
+        }
+      }
+
+      // Path DB Update
+      writeFile(pathFilePath, JSON.stringify(jsonPathTable), (err) => { if (err) throw err });
     })
   } catch (error) {
     console.log(error);

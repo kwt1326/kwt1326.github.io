@@ -7,10 +7,9 @@ import { withRouter, NextRouter } from 'next/router';
 
 type SubTypes = {
   listItem: {
-    content: string;
     category: string;
     title: string;
-    filename: string;
+    file_name: string;
   };
 }
 
@@ -22,7 +21,7 @@ type ComponentProps = {
 
 const ArticleList = (props: ComponentProps) => {
   const toPost = (item: SubTypes['listItem']) => {
-    props.router.push(`/blog/post/${item.filename}`)
+    props.router.push(`/blog/post/${item.category}/${item.file_name}`)
   }
 
   return (

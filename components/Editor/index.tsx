@@ -31,7 +31,7 @@ const EditorPage: React.FC<PropsType> = (props) => {
     <EditorComponent
       ref={editorRef}
       onChange={handleChange}
-      initialValue={props.initialValue || "hello react editor world!"}
+      initialValue={props.initialValue || ""}
       previewStyle="vertical"
       height="calc(100vh - 20px)"
       initialEditType="markdown"

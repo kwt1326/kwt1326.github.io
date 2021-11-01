@@ -7,7 +7,7 @@ const Intro = (props: any) => {
   return (
     <div className={styles.intro_container}>
       <ArticleList
-        title={'Recently Post'}
+        title={'최근 작성된 포스트'}
         listItems={props.data}
       />
     </div>
