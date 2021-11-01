@@ -76,6 +76,7 @@ const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <section>
+      <NextSeo title={props?.title} description={props?.title} />
       <BlogJsonLd
         title={props?.title}
         url={`https://kwt1326.github.io/blog/post/${props.category}/${props.fileName}`}
