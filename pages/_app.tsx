@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           id="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
-        <title>{getTitle(`Dongtae's Dog-Foot`)}</title>
+        <title>{getTitle(`wontae_code Dev blog`)}</title>
       </Head>
       <Modal />
       <SideMenuList />
