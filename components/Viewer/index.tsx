@@ -7,7 +7,7 @@ import styles from "./Viewer.module.scss";
 const Viewer = dynamic<ViewerProps>(() => import("@toast-ui/react-editor").then(m => m.Viewer), { ssr: false });
 
 const ViewerWrapper = (props: any) => (
-  <section className={styles.viewer_container}>
+  <section className={props?.noContainerStyle ? '' : styles.viewer_container}>
     <Viewer {...props} />
   </section>
 ); 

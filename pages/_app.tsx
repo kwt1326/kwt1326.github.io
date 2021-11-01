@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             </div>
           )
         }
-        <div className="component" style={isIgnorePage ? { padding: 0 } : {}}>
+        <div className="component" style={isIgnorePage ? { padding: 0, flex: 1 } : {}}>
           <Component {...props?.pageProps} />
         </div>
         {
