@@ -6,6 +6,7 @@ import {
   InferGetStaticPropsType
 } from 'next';
 import { withRouter } from 'next/router';
+import { NextSeo, BlogJsonLd } from 'next-seo';
 import { readFileSync } from 'fs';
 import { connect } from 'react-redux';
 import { DiscussionEmbed } from 'disqus-react';
@@ -75,6 +76,15 @@ const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <section>
+      <BlogJsonLd
+        title={props?.title}
+        url={`https://kwt1326.github.io/blog/post/${props.category}/${props.fileName}`}
+        images={["/images/og_logo.png"]}
+        datePublished={props?.createdAt}
+        dateModified={props?.createdAt}
+        authorName={'wontae Kim'}
+        description={props?.title}        
+      />
       <h1 className={styles.title}>
         {props?.title || 'No Title'}
       </h1>

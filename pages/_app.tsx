@@ -68,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           id="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
+        <meta name="keywords" content="react, next, nextjs, frontend, fullstack, programming, develop, web" />
         <title>{getTitle(`wontae_code Dev blog`)}</title>
       </Head>
       <Modal />
