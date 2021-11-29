@@ -8,8 +8,9 @@ const DefaultSeoValues = {
     url: 'https://kwt1326.github.io/',
     title: "wontae_code Dev blog",
     site_name: "wontae_code Dev blog",
-    description: 'wontae Kim 의 개발 블로그에 오신걸 환영해요.'    
+    description: 'wontae Kim 의 개발 블로그에 오신걸 환영해요.'
   },
+  description: 'wontae Kim 의 개발 블로그에 오신걸 환영해요.'
 };
 
 export default DefaultSeoValues;
