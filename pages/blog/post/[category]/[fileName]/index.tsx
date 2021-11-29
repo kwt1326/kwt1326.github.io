@@ -79,7 +79,7 @@ const Post = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       <NextSeo
         title={props?.title}
         description={props?.title}
-        canonical={'https://kwt1326.github.io'} // canonical 인덱싱을 위해 해당 경로 아래는 분기가 더이상 없어야 한다.
+        canonical={'https://kwt1326.github.io/blog/post'} // canonical 인덱싱을 위해 해당 경로 아래는 분기가 더이상 없어야 한다.
       />
       <BlogJsonLd
         title={props?.title}
