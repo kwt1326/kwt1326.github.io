@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { NextRouter, withRouter } from 'next/router';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { menuOnOff } from '../../../store/actions';
@@ -29,10 +30,7 @@ const SideMenuList = (props: {
           key={item?.title}
           className={styles.menu_item}
           style={{ marginLeft: 15 }}
-          onClick={() => {
-            props.menuOnOff(false);
-            props.router.push(`/blog/post/${key}/${item?.fileName}`)
-          }}
+          onClick={() => props.menuOnOff(false)}
         >
           <article
             style={{
@@ -49,7 +47,17 @@ const SideMenuList = (props: {
               e.target.style.borderBottom = '2px solid transparent';
             }}
           >
-            {item?.title}
+            <Link
+              href={{
+                pathname: '/blog/post/[category]/[fileName]',
+                query: {
+                  category: key,
+                  fileName: item?.fileName
+                }
+              }}
+            >
+              <a>{item?.title}</a>
+            </Link>
           </article>
         </article>
       )
@@ -85,12 +93,16 @@ const SideMenuList = (props: {
             </article>
             <article
               style={{ marginLeft: 10, cursor: 'pointer'}}
-              onClick={() => {
-                props.menuOnOff(false);
-                props.router.push(`/blog/post/${_key}`);
-              }}
+              onClick={() => props.menuOnOff(false)}
             >
-              {'>'}
+              <Link
+                href={{
+                  pathname: '/blog/post/[category]',
+                  query: { category: _key }
+                }}
+              >
+                <a>{'>'}</a>
+              </Link>
             </article>
           </article>
           <div style={{ display: toggle[_key] ? 'block' : 'none' }}>
