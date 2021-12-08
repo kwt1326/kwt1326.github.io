@@ -22,7 +22,8 @@ type ComponentProps = {
 
 const ArticleList = (props: ComponentProps) => {
 
-  const LinkChildren = React.forwardRef(({ href, item, index }: {
+  const LinkChildren = React.forwardRef(({ onClick, href, item, index }: {
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     href?: string;
     item: any;
     index: number;
@@ -31,9 +32,6 @@ const ArticleList = (props: ComponentProps) => {
       <motion.div
         key={index}
         className={styles.list_item_container_action}
-        onClick={() => {
-          if (href) document.location.href = href
-        }}
         whileHover={{ scale: 1.05, rotateZ: -2 }}
       >
         <motion.div
@@ -62,7 +60,9 @@ const ArticleList = (props: ComponentProps) => {
               delay: index * 0.35
             }}
           >
-            {item.title}
+            <a href={href} onClick={onClick} ref={ref}>
+              {item.title}
+            </a>
           </motion.article>
           {/* <Viewer initialValue={item.content} /> */}
         </motion.div>
