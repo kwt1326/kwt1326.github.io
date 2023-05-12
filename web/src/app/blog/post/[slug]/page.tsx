@@ -1,5 +1,4 @@
 import { getPost, getPosts } from "@/src/data/source/post";
-import { PortableText } from "@portabletext/react";
 
 // export async function generateStaticParams() {
 //   return await getPosts();
