@@ -44,6 +44,12 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "author_detail": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author-detail.author-detail",
+      "mappedBy": "author"
     }
   }
 }

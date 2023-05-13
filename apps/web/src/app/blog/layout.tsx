@@ -1,3 +1,6 @@
+import Header from "./components/ui/Header"
+import Container from "./components/ui/Container"
+
 export default function BlogLayout({
   children,
 }: {
@@ -5,7 +8,12 @@ export default function BlogLayout({
 }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Header />
+        <Container>
+          {children}
+        </Container>
+      </body>
     </html>
   )
 }

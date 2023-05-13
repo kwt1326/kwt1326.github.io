@@ -1,29 +1,24 @@
-import { getPost, getPosts } from "@/data/source/post";
+import { makeTitle } from "@/helpers/metadata";
+import { getPost, getPosts } from "@/repository/post";
+import PostDefaultComponent from "./components/default";
 
 // export async function generateStaticParams() {
 //   return await getPosts();
 // }
 
 export async function generateMetadata({ params }: any) {
-  const post: any = await getPost(params.slug);
-  return { title: 'Blog', description: post.title };
+  const { attributes } = await getPost(params.slug);
+  return { title: makeTitle(attributes.title), description: attributes.title };
 }
 
 export default async function Post({ params }: any) {
-  const post: any = await getPost(params.slug);
+  const data = await getPost(params.slug);
 
-  if (!post) {
+  if (!data?.attributes) {
     return {
       status: 404,
     };
   }
 
-  const components = {};
-
-  return (
-    <main>
-      <div>{post.author.name}</div>
-      <h1>{post.title}</h1>
-    </main>
-  );
+  return <PostDefaultComponent {...data} />;
 }

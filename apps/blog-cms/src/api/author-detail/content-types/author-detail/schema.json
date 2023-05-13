@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "author_details",
+  "info": {
+    "singularName": "author-detail",
+    "pluralName": "author-details",
+    "displayName": "AuthorDetail",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "author": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::author.author",
+      "inversedBy": "author_detail"
+    },
+    "introduce": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext",
+      "required": true
+    }
+  }
+}
