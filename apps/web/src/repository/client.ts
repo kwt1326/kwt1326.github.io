@@ -36,4 +36,6 @@ const fetchClient = async (basePath: string, config?: FetchClientConfig) => {
 fetchClient.host = host;
 fetchClient.imageHost = imageHost;
 
+export const combine = (base: string, postFix: string) => `${base}${postFix}`;
+
 export default fetchClient;

@@ -8,6 +8,6 @@ export interface Category {
     updatedAt: string;
     publishedAt: string;
     locale: 'ko' | 'en';
-    posts?: { data: Post[] };
+    posts: { data: Post[] };
   }
 }

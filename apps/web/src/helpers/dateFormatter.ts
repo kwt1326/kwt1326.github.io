@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export const date2Kor = (date: string) => {
+export const dateFormatter = (date: string) => {
   dayjs.locale('ko');
   const year = dayjs(date).format('YYYY');
   const month = dayjs(date).format('MM');

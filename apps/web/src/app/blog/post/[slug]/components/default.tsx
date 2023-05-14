@@ -3,9 +3,9 @@ import { Post } from "@/repository/post/types";
 
 import Title from "./ui/Title";
 import Content from "./ui/Content";
-import Categories from "./ui/Categories";
+import Categories from "@/app/blog/components/ui/Categories";
 import UtterancComponent from "./Utteranc";
-import { AuthorComponent, AuthorBottomComponent } from "./ui/Author";
+import Author from "./ui/Author";
 
 const PostDefaultComponent = ({ attributes }: Post) => {
   const authorData = attributes?.author?.data;
@@ -19,9 +19,9 @@ const PostDefaultComponent = ({ attributes }: Post) => {
     <Fragment>
       <Title title={title} />
       <Categories categories={categories}/>
-      <AuthorComponent {...authorData}/>
+      <Author.Top {...authorData}/>
       <Content content={content} />
-      <AuthorBottomComponent {...authorData}/>
+      <Author.Bottom {...authorData}/>
       <UtterancComponent />
     </Fragment>
   );

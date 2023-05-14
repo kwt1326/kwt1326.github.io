@@ -1,13 +1,12 @@
+import { Fragment } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dayjs from "dayjs";
 
 import client from "@/repository/client";
 import { Author } from "@/repository/author/types";
-import { date2Kor } from "@/helpers/dateFormatter";
-import { Fragment } from "react";
+import { dateFormatter } from "@/helpers/dateFormatter";
 
-export const AuthorComponent =({
+const AuthorComponent =({
   attributes: {
     name,
     thumbnail,
@@ -34,11 +33,11 @@ export const AuthorComponent =({
         <div className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 flex flex-col">
           <Link href={`/about`}>
             <h3 className="text-lg font-medium text-gray-800 dark:text-gray-300">
-              {"Papaya" /* {name} */}
+              {name}
             </h3>
           </Link>
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            {date2Kor(publishedAt)}
+            {dateFormatter(publishedAt)}
           </span>
         </div>
       </div>
@@ -46,7 +45,7 @@ export const AuthorComponent =({
   );
 }
 
-export const AuthorBottomComponent = ({
+const AuthorBottomComponent = ({
   attributes: {
     name,
     description,
@@ -78,7 +77,7 @@ export const AuthorBottomComponent = ({
               className="bg-brand-secondary/20 rounded-full py-2 text-sm text-blue-600 dark:text-blue-500 flex flex-col"
             >
               <h3 className="text-lg font-medium text-gray-800 dark:text-gray-300 underline decoration-purple-500">
-                {"Papaya" /* {name} */}
+                {name}
               </h3>
             </Link>
             <span className="text-sm text-gray-500 dark:text-gray-400">
@@ -91,3 +90,5 @@ export const AuthorBottomComponent = ({
     </Fragment>
   );
 }
+
+export default { Top: AuthorComponent, Bottom: AuthorBottomComponent };

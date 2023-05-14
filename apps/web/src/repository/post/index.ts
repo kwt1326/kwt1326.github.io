@@ -1,14 +1,16 @@
-import client from "../client";
-import { postPopulateQuery } from "./query";
+import client, { combine } from "../client";
 import { Post } from "./types";
+import { postAllQuery, getPostPopulateQuery } from "./query";
 
-export const getPost = async (id: string): Promise<Post> => {
+const baseUrl = '/posts';
+
+export const getPost = async (slug: string): Promise<Post> => {
   try {
-    const { data } = await client(`/posts/${id}${postPopulateQuery}`);
-    if (!data) {
+    const { data } = await client(combine(baseUrl, getPostPopulateQuery(slug)));
+    if (!(data?.[0])) {
       throw new Error('failed fetch data');
     }
-    return (data ?? {}) as Post;
+    return data?.[0] as Post;
   } catch (error) {
     console.error(error);
   }
@@ -16,11 +18,25 @@ export const getPost = async (id: string): Promise<Post> => {
 
 export const getPosts = async () => {
   try {
-    const { data } = await client('/posts');
+    const { data } = await client(combine(baseUrl, postAllQuery));
     if (!data) {
       throw new Error('failed fetch data');
     }
-    return (data ?? {}) as Post[];
+    return data as Post[];
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export const getPostSlugs = async () => {
+  try {
+    const { data } = await client(combine(baseUrl, postAllQuery));
+    
+    if (!data) {
+      throw new Error('failed fetch data');
+    }
+    
+    return (data as Post[]).map(({ attributes: { title } }) => ({ slug: title }));
   } catch (error) {
     console.error(error);
   }

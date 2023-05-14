@@ -10,7 +10,7 @@ const UtterancComponent = () => (
       scriptElement.setAttribute("repo", "kwt1326/kwt1326.github.io");
       scriptElement.setAttribute("async", "true");
       scriptElement.setAttribute("label", "blog");
-      scriptElement.setAttribute("theme", "photon-dark");
+      scriptElement.setAttribute("theme", "github-dark");
       scriptElement.setAttribute("issue-term", "pathname");
       scriptElement.setAttribute("crossorigin", "anonymous");
       el.replaceChildren(scriptElement);

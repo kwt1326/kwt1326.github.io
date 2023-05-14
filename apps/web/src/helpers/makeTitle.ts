@@ -1,3 +1,3 @@
 export const makeTitle = (title: string) => {
-  return `${title} - Wontae's Dev Blog`;
+  return `${title} - Papaya's Memory`;
 }

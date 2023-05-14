@@ -1,0 +1,111 @@
+/* Headings */
+.rmd h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.rmd h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.rmd h3 {
+  font-size: 1.75rem;
+  font-weight: 500;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.rmd h4 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rmd h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-top: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.rmd h6 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Text formatting */
+.rmd strong {
+  font-weight: 600;
+}
+
+.rmd em {
+  font-style: italic;
+}
+
+/* Lists */
+.rmd ul,
+.rmd ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.rmd li {
+  margin-bottom: 0.5rem;
+}
+
+/* Links */
+.rmd a {
+  color: #0077cc;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.rmd a:hover {
+  color: #005ea5;
+}
+
+/* Code blocks */
+pre.rmd-default {
+  background-color: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+code.rmd-default {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  color: #f472b6;
+  background-color: #282828;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Blockquotes */
+.rmd blockquote {
+  margin: 0;
+  padding: 1rem;
+  color: #6a737d;
+  border-left: 0.25rem solid #dfe2e5;
+  background-color: #f7f7f7;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Horizontal rule */
+.rmd hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 2rem 0;
+}
