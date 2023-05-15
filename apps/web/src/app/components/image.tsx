@@ -8,6 +8,7 @@ export default function Image(props) {
       alt=""
       {...props}
       loader={({ src }) => src}
+      unoptimized={true}
     />
   );
 }
