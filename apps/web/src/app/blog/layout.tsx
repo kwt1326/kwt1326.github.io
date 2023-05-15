@@ -1,19 +1,16 @@
-import Header from "./components/ui/Header"
-import Container from "./components/ui/Container"
+import Header from "./components/ui/Header";
+import Container from "./components/ui/Container";
+import { Fragment } from "react";
 
 export default function BlogLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
-      <body>
-        <Header />
-        <Container>
-          {children}
-        </Container>
-      </body>
-    </html>
-  )
+    <Fragment>
+      <Header />
+      <Container>{children}</Container>
+    </Fragment>
+  );
 }

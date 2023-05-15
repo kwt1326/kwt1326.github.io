@@ -6,7 +6,8 @@ export const getCategoryQuery = (name: string) => `
 
 export const getCategoriesQuery = `
 ?fields=name
-&populate[posts][populate]=*
+&populate[posts][populate][thumbnail]=posts.thumbnail
+&populate[posts][populate][categories]=posts.categories
 &pagination[withCount]=true
 `
 

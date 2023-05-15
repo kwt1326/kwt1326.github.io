@@ -15,10 +15,10 @@ const CodeBlock = ({
   return !inline && match ? (
     <SyntaxHighlighter
       {...props}
-      children={String(children).replace(/\n$/, "")}
+      PreTag="div"
       style={vscDarkPlus}
       language={match[1]}
-      PreTag="div"
+      children={String(children).replace(/\n$/, "")}
     />
   ) : (
     <code {...props} className="rmd-default">

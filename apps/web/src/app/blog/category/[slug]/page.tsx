@@ -25,13 +25,12 @@ export default async function Category({ params: { slug } }) {
 
   if (!categoryData) redirect("/blog");
 
-  const postsData = categoryData.attributes.posts.data;
-  const props = {
-    main: false,
-    title: categoryData.attributes.name,
-    posts: postsData,
-    categories: categoriesData,
-  };
-
-  return <BlogDefaultComponent {...props} />;
+  return (
+    <BlogDefaultComponent
+      main={false}
+      title={categoryData.attributes.name}
+      posts={categoryData.attributes.posts.data}
+      categories={categoriesData}
+    />
+  );
 }

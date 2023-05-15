@@ -25,6 +25,7 @@ const GridList: React.FC<PropsWithChildren<any>> & GridListComposition = ({ chil
 const GridListItem = ({ item, index }: { item: Post; index: number }) => {
   const isReminderZero = (index + 1) % 3 === 0;
   const thumbnail = item.attributes?.thumbnail?.data?.attributes.formats.large;
+
   return (
     <div
       key={index}
