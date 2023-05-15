@@ -13,5 +13,6 @@ git commit -m 'Deploy Next.js to gh-pages'
 cd ../../
 
 git subtree push --prefix apps/web/out origin gh-pages
+git push
 
 # deploy branch : gh-pages
