@@ -35,11 +35,7 @@ const GridListItem = ({ item, index }: { item: Post; index: number }) => {
       <Link href={`/blog/post/${item.attributes.title}`}>
         <div className="w-full flex justify-center transition-transform hover:scale-105">
           <Image
-            src={
-              thumbnail?.url
-                ? `${client.imageHost}${thumbnail?.url}`
-                : defaultSrc
-            }
+            src={thumbnail?.url ?? defaultSrc}
             alt={item.attributes.title}
             className="rounded-sm object-cover"
             width={thumbnail?.width ?? 1024}

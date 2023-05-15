@@ -21,7 +21,7 @@ const AuthorComponent =({
           {imageSrc && (
             <Link href={`/about`}>
               <Image
-                src={`${client.imageHost}${imageSrc}`}
+                src={imageSrc}
                 alt={name}
                 className="rounded-full object-cover"
                 fill
@@ -62,7 +62,7 @@ const AuthorBottomComponent = ({
             {imageSrc && (
               <Link href={`/about`}>
                 <Image
-                  src={`${client.imageHost}${imageSrc}`}
+                  src={imageSrc}
                   alt={name}
                   className="rounded-full object-cover"
                   fill

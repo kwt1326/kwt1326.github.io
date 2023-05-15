@@ -22,7 +22,7 @@ const Content = ({ content, thumbnail }: ContentProps) => {
       {thumbnail && (
         <Image
           className="m-auto"
-          src={`${client.imageHost}${thumbnail.url ?? defaultSrc}`}
+          src={thumbnail.url ?? defaultSrc}
           alt={"thumbnail"}
           width={thumbnail.width}
           height={thumbnail.height}
