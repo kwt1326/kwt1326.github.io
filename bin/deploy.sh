@@ -7,7 +7,7 @@ yarn build
 yarn export
 touch out/.nojekyll
 git add .
-git add out/
+git add -f out/
 git commit -m 'Deploy Next.js to gh-pages'
 git subtree push --prefix out origin gh-pages
 
