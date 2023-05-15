@@ -1,6 +1,6 @@
 import client from "@/repository/client";
 import { Post } from "@/repository/post/types";
-import Image from "next/image";
+import Image from "@/app/components/image";
 import Link from "next/link";
 import defaultSrc from "public/develop.jpeg"
 import { PropsWithChildren } from "react";

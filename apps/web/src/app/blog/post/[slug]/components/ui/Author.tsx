@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/app/components/image";
 
 import client from "@/repository/client";
 import { Author } from "@/repository/author/types";
