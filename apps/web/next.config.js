@@ -3,6 +3,6 @@ module.exports = {
   reactStrictMode: true,
   transpilePackages: ["ui"],
   images: {
-    domains: ['localhost', 'kwt1326.github.io', 'res.cloudinary.com'],
+    domains: ['res.cloudinary.com'],
   },
 };
