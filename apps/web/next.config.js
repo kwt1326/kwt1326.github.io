@@ -3,6 +3,6 @@ module.exports = {
   reactStrictMode: true,
   transpilePackages: ["ui"],
   images: {
-    domains: ["localhost"], // [configs.STRAPI_DOMAIN],
+    domains: ['localhost', 'kwt1326.github.io'],
   },
 };
