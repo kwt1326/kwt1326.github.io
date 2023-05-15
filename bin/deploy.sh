@@ -9,8 +9,9 @@ touch out/.nojekyll
 git add .
 git add -f out/
 git commit -m 'Deploy Next.js to gh-pages'
-git subtree push --prefix out origin gh-pages
 
 cd ../../
+
+git subtree push --prefix apps/web/out origin gh-pages
 
 # deploy branch : gh-pages
