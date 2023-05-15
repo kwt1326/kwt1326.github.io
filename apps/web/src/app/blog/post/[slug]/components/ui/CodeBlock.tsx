@@ -1,7 +1,7 @@
-
-import React from "react";
+/* eslint-disable react/no-children-prop */
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 import './markdown.css';
 
 const CodeBlock = ({

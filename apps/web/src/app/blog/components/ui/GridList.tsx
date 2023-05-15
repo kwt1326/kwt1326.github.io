@@ -1,3 +1,4 @@
+import client from "@/repository/client";
 import { Post } from "@/repository/post/types";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,9 +24,7 @@ const GridList: React.FC<PropsWithChildren<any>> & GridListComposition = ({ chil
 
 const GridListItem = ({ item, index }: { item: Post; index: number }) => {
   const isReminderZero = (index + 1) % 3 === 0;
-  const thumbnailSrc = item.attributes.thumbnail.data
-    ? item.attributes.thumbnail.data.attributes.formats.thumbnail.url
-    : defaultSrc;
+  const thumbnail = item.attributes?.thumbnail?.data?.attributes.formats.large;
   return (
     <div
       key={index}
@@ -36,11 +35,15 @@ const GridListItem = ({ item, index }: { item: Post; index: number }) => {
       <Link href={`/blog/post/${item.attributes.title}`}>
         <div className="w-full flex justify-center transition-transform hover:scale-105">
           <Image
-            src={thumbnailSrc}
+            src={
+              thumbnail?.url
+                ? `${client.imageHost}${thumbnail?.url}`
+                : defaultSrc
+            }
             alt={item.attributes.title}
-            className="rounded-lg object-cover"
-            width={1024}
-            height={0}
+            className="rounded-sm object-cover"
+            width={thumbnail?.width ?? 1024}
+            height={thumbnail?.height ?? 0}
             priority={true}
           />
         </div>
@@ -56,7 +59,7 @@ const GridListItem = ({ item, index }: { item: Post; index: number }) => {
           ))}
         </div>
         <Link href={`/blog/post/${item.attributes.title}`}>
-          <div className="flex flex-wrap justify-center w-max text-xl md:text-2xl font-semibold transition-colors bg-gradient-to-r from-white to-white hover:from-pink-500 hover:to-yellow-500 bg-clip-text hover:text-transparent">
+          <div className="w-full flex flex-wrap justify-start text-xl md:text-2xl font-semibold transition-colors bg-gradient-to-r from-white to-white hover:from-pink-500 hover:to-yellow-500 bg-clip-text hover:text-transparent">
             {item.attributes.title}
           </div>
         </Link>

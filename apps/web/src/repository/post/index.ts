@@ -36,7 +36,7 @@ export const getPostSlugs = async () => {
       throw new Error('failed fetch data');
     }
     
-    return (data as Post[]).map(({ attributes: { title } }) => ({ slug: title }));
+    return (data as Post[]).map(({ attributes: { title } }) => ({ slug: decodeURIComponent(title) }));
   } catch (error) {
     console.error(error);
   }

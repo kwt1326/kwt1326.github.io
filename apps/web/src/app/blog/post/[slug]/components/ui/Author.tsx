@@ -91,4 +91,6 @@ const AuthorBottomComponent = ({
   );
 }
 
-export default { Top: AuthorComponent, Bottom: AuthorBottomComponent };
+const AuthorComponents = { Top: AuthorComponent, Bottom: AuthorBottomComponent };
+
+export default AuthorComponents;

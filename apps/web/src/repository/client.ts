@@ -5,8 +5,16 @@ interface FetchClientConfig {
   body?: any,
 }
 
-const host = process.env.NEXT_PUBLIC_STRAPI_REST_API_HOST ?? 'http://localhost:3000';
-const imageHost = process.env.NEXT_PUBLIC_STRAPI_REST_API_IMAGE_HOST ?? 'http://localhost:3000';
+const {
+  NODE_ENV,
+  NEXT_PUBLIC_STRAPI_REST_API_HOST,
+  NEXT_PUBLIC_STRAPI_REST_API_IMAGE_HOST,
+  NEXT_PUBLIC_STRAPI_REST_API_TOKEN
+} = process.env;
+
+const clientHost = NODE_ENV === 'development' ? "http://localhost:3000" : "https://kwt1326.github.io";
+const host = NEXT_PUBLIC_STRAPI_REST_API_HOST ?? 'http://localhost:3000';
+const imageHost = NEXT_PUBLIC_STRAPI_REST_API_IMAGE_HOST ?? 'http://localhost:3000';
 
 const fetchClient = async (basePath: string, config?: FetchClientConfig) => {
   const { method, headers, params, body } = (config ?? {});
@@ -24,7 +32,7 @@ const fetchClient = async (basePath: string, config?: FetchClientConfig) => {
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `bearer ${process.env.NEXT_PUBLIC_STRAPI_REST_API_TOKEN ?? ''}`,
+      'Authorization': `bearer ${NEXT_PUBLIC_STRAPI_REST_API_TOKEN ?? ''}`,
       ...(headers ?? {})
     },
     body: body ?? JSON.stringify(body),
@@ -33,6 +41,7 @@ const fetchClient = async (basePath: string, config?: FetchClientConfig) => {
   return response.json();
 }
 
+fetchClient.clientHost = clientHost;
 fetchClient.host = host;
 fetchClient.imageHost = imageHost;
 

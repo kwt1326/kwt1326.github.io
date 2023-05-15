@@ -1,6 +1,7 @@
 export const getPostPopulateQuery = (title: string) => `
 ?filters[title][$eq][0]=${title}
 &populate[categories]=categories
+&populate[thumbnail]=thumbnail
 &populate[author][populate]=thumbnail
 `
 

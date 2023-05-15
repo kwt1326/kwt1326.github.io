@@ -12,6 +12,7 @@ const PostDefaultComponent = ({ attributes }: Post) => {
   const categories = attributes?.categories?.data;
   const title = attributes.title;
   const content = attributes.content;
+  const thumbnail = attributes.thumbnail?.data?.attributes?.formats?.large;
 
   if (!authorData) return null;
 
@@ -20,7 +21,7 @@ const PostDefaultComponent = ({ attributes }: Post) => {
       <Title title={title} />
       <Categories categories={categories}/>
       <Author.Top {...authorData}/>
-      <Content content={content} />
+      <Content content={content} thumbnail={thumbnail} />
       <Author.Bottom {...authorData}/>
       <UtterancComponent />
     </Fragment>
