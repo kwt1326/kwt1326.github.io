@@ -13,7 +13,7 @@ import './markdown.css';
 
 interface ContentProps {
   content: string;
-  thumbnail: any;
+  thumbnail?: any;
 }
 
 const Content = ({ content, thumbnail }: ContentProps) => {
