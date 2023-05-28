@@ -73,6 +73,7 @@ globalThis.CKEditorConfig = {
                     CKEditor5.image.ImageUpload,
                     CKEditor5.indent.Indent,
                     CKEditor5.link.Link,
+                    CKEditor5.link.LinkImage,
                     CKEditor5.list.List,
                     CKEditor5.paragraph.Paragraph,
                     CKEditor5.pasteFromOffice.PasteFromOffice,

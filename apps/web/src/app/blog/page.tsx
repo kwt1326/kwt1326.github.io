@@ -1,5 +1,5 @@
 import { makeTitle } from "@/helpers/makeTitle";
-import { getPosts } from "@/repository/post";
+import { getPosts, getPostsCount } from "@/repository/post";
 import { getCategories } from "@/repository/category";
 import BlogDefaultComponent from "./components/default";
 
@@ -10,8 +10,9 @@ export const metadata = {
 
 export default async function Blog(_: any) {
   const postsData = await getPosts();
+  const totalCount = (await getPostsCount())?.pagination?.total ?? 0;
   const categoriesData = await getCategories();
-  const props = { title: 'Last 12 Posts', posts: postsData, categories: categoriesData };
+  const props = { title: 'Last 12 Posts', posts: postsData, totalCount, categories: categoriesData };
 
   return <BlogDefaultComponent {...props} />;
 }

@@ -13,7 +13,7 @@ const PostDefaultComponent = ({ attributes }: Post) => {
   const categories = attributes?.categories?.data;
   const title = attributes.title;
   const content = attributes.content;
-  const thumbnail = attributes.thumbnail?.data?.attributes?.formats?.large;
+  const thumbnail = attributes.thumbnail?.data?.attributes;
 
   if (!authorData) return null;
 

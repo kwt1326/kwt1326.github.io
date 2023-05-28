@@ -3,15 +3,14 @@ import { Category } from "@/repository/category/types";
 
 interface SideCategoriesProps {
   categories: Category[];
+  totalCount: number;
 }
 
-const SideCategories = ({ categories }: SideCategoriesProps) => {
+const SideCategories = ({ categories, totalCount }: SideCategoriesProps) => {
   const _categories = categories.map((category: Category) => ({
     name: category.attributes.name,
     count: category.attributes.posts.data.length,
   }));
-
-  const getAllCount = () => _categories.reduce((acc, cur) => acc += cur.count, 0);
 
   const renderItem = ({ name, count, href }) => (
     <Link key={name} href={href}>
@@ -26,7 +25,7 @@ const SideCategories = ({ categories }: SideCategoriesProps) => {
     <div className="flex flex-col">
       <h1 className="text-2xl font-semibold mb-2">Categories</h1>
       <div className="flex flex-col justify-center w-max">
-        {renderItem({ name: 'All', count: getAllCount(), href: '/blog' })}
+        {renderItem({ name: 'All', count: totalCount, href: '/blog' })}
         {_categories.map(({ name, count }) =>
           renderItem({ name, count, href: `/blog/category/${name}` })
         )}

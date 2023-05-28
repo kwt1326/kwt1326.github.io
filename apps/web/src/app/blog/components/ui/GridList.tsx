@@ -1,9 +1,10 @@
-import client from "@/repository/client";
-import { Post } from "@/repository/post/types";
-import Image from "@/app/components/image";
 import Link from "next/link";
-import defaultSrc from "public/develop.jpeg"
 import { PropsWithChildren } from "react";
+
+import Image from "@/app/components/image";
+import { Post } from "@/repository/post/types";
+
+import defaultSrc from "public/develop.jpeg"
 
 interface GridListItemProps {
   item: Post;
@@ -23,20 +24,20 @@ const GridList: React.FC<PropsWithChildren<any>> & GridListComposition = ({ chil
 };
 
 const GridListItem = ({ item, index }: { item: Post; index: number }) => {
-  const isReminderZero = (index + 1) % 3 === 0;
-  const thumbnail = item.attributes?.thumbnail?.data?.attributes.formats.large;
+  const thumbnail = item.attributes?.thumbnail?.data?.attributes?.url;
 
   return (
     <div
       key={index}
-      className={`col-start-1 col-end-2 md:${
-        isReminderZero ? "col-span-2" : "col-span-1"
-      } flex flex-col justify-center w-full`}
+      className={`col-span-1 flex flex-col justify-center w-full`}
     >
-      <Link href={`/blog/post/${item.attributes.title}`}>
+      <Link
+        className="m-auto"
+        href={`/blog/post/${item.attributes.title}`}
+      >
         <div className="w-full flex justify-center transition-transform hover:scale-105">
           <Image
-            src={thumbnail?.url ?? defaultSrc}
+            src={thumbnail ?? defaultSrc}
             alt={item.attributes.title}
             className="rounded-sm object-cover"
             width={thumbnail?.width ?? 1024}
@@ -46,7 +47,7 @@ const GridListItem = ({ item, index }: { item: Post; index: number }) => {
         </div>
       </Link>
       <div>
-        <div className="flex flex-wrap justify-start w-max">
+        <div className="flex flex-wrap justify-start w-100">
           {item.attributes.categories.data.map((category, i) => (
             <Link key={i} href={`/blog/category/${category.attributes.name}`}>
               <h1 className="select-none text-lg font-semibold py-2 mr-2 flex items-center text-white rounded-full border-transparent hover:underline decoration-2 underline-offset-4 decoration-orange-500">

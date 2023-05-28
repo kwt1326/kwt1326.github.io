@@ -9,7 +9,7 @@ const AuthorTopComponent =({
     publishedAt,
   },
 }: Author) => {
-  const imageSrc = thumbnail?.data?.attributes?.formats?.small?.url;
+  const imageSrc = thumbnail?.data?.attributes?.url;
   return (
     <div className="select-none px-8 py-8 text-gray-500">
       <div className="flex flex-wrap items-center sm:flex-nowrap sm:space-x-6">

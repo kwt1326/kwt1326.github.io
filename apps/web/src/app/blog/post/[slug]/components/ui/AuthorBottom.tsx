@@ -1,4 +1,5 @@
 'use client'
+
 import { Fragment, useState } from "react";
 
 import Image from "@/app/components/image";
@@ -15,7 +16,7 @@ const AuthorBottomComponent = ({
 }: Author) => {
   const [open, setOpen] = useState<boolean>(false)
 
-  const imageSrc = thumbnail?.data?.attributes?.formats?.small?.url;
+  const imageSrc = thumbnail?.data?.attributes?.url;
 
   return (
     <Fragment>

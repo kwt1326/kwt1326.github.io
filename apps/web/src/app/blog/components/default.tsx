@@ -6,6 +6,7 @@ import SideCategories from './ui/SideCategories';
 interface BlogDefaultComponentProps {
   main?: boolean;
   title: string;
+  totalCount: number;
   posts: Post[];
   categories: Category[];
 }
@@ -13,14 +14,17 @@ interface BlogDefaultComponentProps {
 const BlogDefaultComponent = ({
   main = true,
   title,
+  totalCount,
   posts,
   categories,
 }: BlogDefaultComponentProps) => {
-  const list = main ? posts.slice(0, 12) : posts;
+  if (!posts) return null;
+
+  const list = main ? posts?.slice(0, 12) : posts;
   return (
     <div className="flex">
       <aside className="fixed hidden md:block">
-        <SideCategories categories={categories} />
+        <SideCategories categories={categories} totalCount={totalCount} />
       </aside>
       <main className="md:ml-52">
         <div className="text-3xl mb-4 font-semibold">

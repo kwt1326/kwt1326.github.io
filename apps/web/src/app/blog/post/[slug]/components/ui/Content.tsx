@@ -1,12 +1,12 @@
 'use client'
 
-import Image from "@/app/components/image";
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import client from "@/repository/client";
+import Image from "@/app/components/image";
 import CodeBlock from "./CodeBlock";
+
 import defaultSrc from "public/develop.jpeg";
 
 import './markdown.css';
@@ -17,17 +17,17 @@ interface ContentProps {
 }
 
 const Content = ({ content, thumbnail }: ContentProps) => {
+  const imageSrc = thumbnail?.url ?? defaultSrc
+
   return (
     <main className={`mt-8 mb-8`}>
-      {thumbnail && (
-        <Image
-          className="m-auto"
-          src={thumbnail.url ?? defaultSrc}
-          alt={"thumbnail"}
-          width={thumbnail.width}
-          height={thumbnail.height}
-        />
-      )}
+      <Image
+        className="m-auto"
+        src={imageSrc}
+        alt={"thumbnail"}
+        width={thumbnail?.width ?? 1024}
+        height={thumbnail?.height ?? 0}
+      />
       <ReactMarkdown
         className="rmd"
         remarkPlugins={[remarkGfm]}

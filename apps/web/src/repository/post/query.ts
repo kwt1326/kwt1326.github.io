@@ -13,3 +13,5 @@ export const postAllQuery = `
 &populate[thumbnail]=thumbnail
 &pagination[withCount]=true
 `
+
+export const postAllCountQuery = '?fields[0]=title&pagination[withCount]=true'
