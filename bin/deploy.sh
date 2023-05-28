@@ -13,7 +13,6 @@ git commit -m 'Deploy Next.js to gh-pages'
 cd ../../
 
 git add -f apps/blog-cms/public/uploads/
-git reset apps/blog-cms/public/uploads/.gitkeep
 git subtree push --prefix apps/blog-cms/public/uploads/ origin resources
 git subtree push --prefix apps/web/out origin gh-pages
 git push
